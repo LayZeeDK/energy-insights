@@ -21,5 +21,13 @@
       }
     }
   },
-  "projects": {}
+  "projects": {
+    "energy-insights-app": {
+      "tags": ["type:app"]
+    },
+    "energy-insights-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["energy-insights-app"]
+    }
+  }
 }

@@ -1,3 +1,3 @@
 module.exports = {
-  projects: [],
+  projects: ['<rootDir>/apps/energy-insights-app'],
 };

@@ -18,14 +18,144 @@
       "viewEncapsulation": "None"
     },
     "@nrwl/angular:library": {
+      "style": "scss",
       "linter": "eslint",
-      "strict": true,
-      "unitTestRunner": "jest"
+      "unitTestRunner": "jest",
+      "strict": true
     },
     "@schematics/angular:component": {
       "changeDetection": "OnPush",
       "displayBlock": true
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
     }
   },
-  "projects": {}
+  "projects": {
+    "energy-insights-app": {
+      "projectType": "application",
+      "root": "apps/energy-insights-app",
+      "sourceRoot": "apps/energy-insights-app/src",
+      "prefix": "nrg",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/energy-insights-app",
+            "index": "apps/energy-insights-app/src/index.html",
+            "main": "apps/energy-insights-app/src/main.ts",
+            "polyfills": "apps/energy-insights-app/src/polyfills.ts",
+            "tsConfig": "apps/energy-insights-app/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/energy-insights-app/src/favicon.ico",
+              "apps/energy-insights-app/src/assets"
+            ],
+            "styles": [
+              "apps/energy-insights-app/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/energy-insights-app/src/environments/environment.ts",
+                  "with": "apps/energy-insights-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "energy-insights-app:build:production"
+            },
+            "development": {
+              "browserTarget": "energy-insights-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "energy-insights-app:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/energy-insights-app/src/**/*.ts",
+              "apps/energy-insights-app/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/energy-insights-app"
+          ],
+          "options": {
+            "jestConfig": "apps/energy-insights-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "energy-insights-app-e2e": {
+      "root": "apps/energy-insights-app-e2e",
+      "sourceRoot": "apps/energy-insights-app-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/energy-insights-app-e2e/cypress.json",
+            "tsConfig": "apps/energy-insights-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "energy-insights-app:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "energy-insights-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/energy-insights-app-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "energy-insights-app"
 }
