@@ -42,7 +42,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Test projects
+      - name: Lint workspace and projects
         run: pnpm lint
   test:
     runs-on: ubuntu-latest
