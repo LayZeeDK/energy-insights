@@ -31,6 +31,7 @@
       "style": "scss"
     }
   },
+  "defaultProject": "energy-insights-app",
   "projects": {
     "energy-insights-app": {
       "projectType": "application",
@@ -51,9 +52,7 @@
               "apps/energy-insights-app/src/favicon.ico",
               "apps/energy-insights-app/src/assets"
             ],
-            "styles": [
-              "apps/energy-insights-app/src/styles.scss"
-            ],
+            "styles": ["apps/energy-insights-app/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -118,9 +117,7 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/energy-insights-app"
-          ],
+          "outputs": ["coverage/apps/energy-insights-app"],
           "options": {
             "jestConfig": "apps/energy-insights-app/jest.config.js",
             "passWithNoTests": true
@@ -149,13 +146,10 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/energy-insights-app-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/energy-insights-app-e2e/**/*.{js,ts}"]
           }
         }
       }
     }
-  },
-  "defaultProject": "energy-insights-app"
+  }
 }
