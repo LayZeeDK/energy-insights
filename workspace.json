@@ -5,7 +5,7 @@
   },
   "generators": {
     "@nrwl/angular:application": {
-      "e2eTestRunner": "cypress",
+      "e2eTestRunner": "none",
       "inlineStyle": true,
       "inlineTemplate": true,
       "linter": "eslint",
@@ -31,6 +31,7 @@
       "style": "scss"
     }
   },
+  "defaultProject": "energy-insights-app",
   "projects": {
     "energy-insights-app": {
       "projectType": "application",
@@ -51,9 +52,7 @@
               "apps/energy-insights-app/src/favicon.ico",
               "apps/energy-insights-app/src/assets"
             ],
-            "styles": [
-              "apps/energy-insights-app/src/styles.scss"
-            ],
+            "styles": ["apps/energy-insights-app/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -118,44 +117,13 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/energy-insights-app"
-          ],
+          "outputs": ["coverage/apps/energy-insights-app"],
           "options": {
             "jestConfig": "apps/energy-insights-app/jest.config.js",
             "passWithNoTests": true
           }
         }
       }
-    },
-    "energy-insights-app-e2e": {
-      "root": "apps/energy-insights-app-e2e",
-      "sourceRoot": "apps/energy-insights-app-e2e/src",
-      "projectType": "application",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/energy-insights-app-e2e/cypress.json",
-            "tsConfig": "apps/energy-insights-app-e2e/tsconfig.e2e.json",
-            "devServerTarget": "energy-insights-app:serve:development"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "energy-insights-app:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/energy-insights-app-e2e/**/*.{js,ts}"
-            ]
-          }
-        }
-      }
     }
-  },
-  "defaultProject": "energy-insights-app"
+  }
 }

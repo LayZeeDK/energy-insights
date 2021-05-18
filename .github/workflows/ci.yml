@@ -1,0 +1,63 @@
+name: Energy Insights CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+  workflow_dispatch:
+    branches:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - name: Install PNPM
+        run: npm install --global pnpm
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Angular app
+        run: pnpm build
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - name: Install PNPM
+        run: npm install --global pnpm
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint workspace and projects
+        run: pnpm lint
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - name: Install PNPM
+        run: npm install --global pnpm
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Test projects
+        run: pnpm test
