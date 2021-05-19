@@ -1,6 +1,6 @@
 {
   "arrowParens": "avoid",
   "printWidth": 80,
-  "singleQuote": true,
-  "proseWrap": "always"
+  "proseWrap": "always",
+  "singleQuote": true
 }

@@ -9,6 +9,18 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 max_line_length = 80
 
-[*.md]
+[*.{css,scss}]
+quote_type = single
+
+[*.html]
+max_line_length = 120
+
+[*.{json,yaml,yml}]
 max_line_length = off
+
+[*.md]
+max_line_length = 120
 trim_trailing_whitespace = false
+
+[*.ts]
+quote_type = single
