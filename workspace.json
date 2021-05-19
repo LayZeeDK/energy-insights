@@ -18,10 +18,11 @@
       "viewEncapsulation": "None"
     },
     "@nrwl/angular:library": {
-      "style": "scss",
       "linter": "eslint",
-      "unitTestRunner": "jest",
-      "strict": true
+      "prefix": "nrg",
+      "strict": true,
+      "style": "scss",
+      "unitTestRunner": "jest"
     },
     "@schematics/angular:component": {
       "changeDetection": "OnPush",
