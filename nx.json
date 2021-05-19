@@ -22,6 +22,9 @@
     }
   },
   "projects": {
+    "co2-data-access": {
+      "tags": ["scope:co2", "type:data-access"]
+    },
     "energy-insights-app": {
       "tags": ["type:app"]
     },
