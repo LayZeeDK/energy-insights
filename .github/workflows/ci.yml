@@ -1,5 +1,11 @@
 name: Energy Insights CI
 
+env:
+  node-version: 14.x
+  NODE_OPTIONS: --max_old_space_size=6144
+  NX_BRANCH: ${{ github.event.number }}
+  NX_RUN_GROUP: ${{ github.run_id }}
+
 on:
   push:
     branches:
@@ -16,31 +22,32 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Node.js 14.x
+      - name: Set up Node.js ${{ env.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: ${{ env.node-version }}
       - name: Install PNPM
         run: npm install --global pnpm
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile --verify-store-integrity false
 
       - name: Build Angular app
         run: pnpm build
   lint:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Node.js 14.x
+      - name: Set up Node.js ${{ env.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: ${{ env.node-version }}
       - name: Install PNPM
         run: npm install --global pnpm
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile --verify-store-integrity false
 
       - name: Lint workspace and projects
         run: pnpm lint
@@ -50,14 +57,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Node.js 14.x
+      - name: Set up Node.js ${{ env.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: ${{ env.node-version }}
       - name: Install PNPM
         run: npm install --global pnpm
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile --verify-store-integrity false
 
       - name: Test projects
         run: pnpm test
