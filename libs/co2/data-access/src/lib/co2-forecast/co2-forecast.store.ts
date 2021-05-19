@@ -18,7 +18,10 @@ interface QueryFilter {
 @Injectable()
 export class Co2ForecastStore extends ComponentStore<Co2ForecastState> {
   records$: Observable<Co2EmissionPrognosisRecords> = this.select(
-    state => state.records
+    state => state.records,
+    {
+      debounce: true,
+    }
   );
 
   constructor(private http: Co2EmissionPrognosisHttp) {
