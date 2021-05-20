@@ -5,7 +5,7 @@ import { mergeMap } from 'rxjs/operators';
 
 import { CkanErrorResponse } from './ckan-errors-response';
 import { CkanResponse } from './ckan-response';
-import { Co2EmissionPrognosisRecord } from './co2-emission-prognosis-record';
+import { Co2EmissionPrognosisRecord, Co2EmissionPrognosisRecords } from './co2-emission-prognosis-record';
 import { energiDataServiceEndpoint } from './energi-data-service-endpoint';
 
 // sql
@@ -17,7 +17,7 @@ import { energiDataServiceEndpoint } from './energi-data-service-endpoint';
 export class Co2EmissionPrognosisHttp {
   constructor(private http: HttpClient) {}
 
-  get(): Observable<readonly Co2EmissionPrognosisRecord[]> {
+  get(): Observable<Co2EmissionPrognosisRecords> {
     const sql = `SELECT "Minutes5UTC" AS "minutes5Utc"
         ,"CO2Emission" AS "co2Emission"
         ,"PriceArea" AS "priceArea"
