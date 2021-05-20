@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { first } from 'rxjs/operators';
 
@@ -6,6 +7,7 @@ import { Co2ForecastStore } from './co2-forecast.store';
 describe(Co2ForecastStore.name, () => {
   function setup() {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [Co2ForecastStore],
     });
 

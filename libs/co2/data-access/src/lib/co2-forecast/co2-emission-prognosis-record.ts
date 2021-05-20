@@ -1,6 +1,6 @@
 export interface Co2EmissionPrognosisRecord {
   readonly co2Emission: number;
-  readonly minutes5UTC: Date;
+  readonly minutes5Utc: Date;
   readonly priceArea: 'DK1' | 'DK2';
 }
 
