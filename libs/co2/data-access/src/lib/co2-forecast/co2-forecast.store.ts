@@ -6,7 +6,7 @@ import { switchMap } from 'rxjs/operators';
 import { Co2EmissionPrognosisHttp } from './co2-emission-prognosis-http.service';
 import { Co2EmissionPrognosisRecords } from './co2-emission-prognosis-record';
 
-export interface Co2ForecastState {
+interface Co2ForecastState {
   readonly records: Co2EmissionPrognosisRecords;
 }
 
