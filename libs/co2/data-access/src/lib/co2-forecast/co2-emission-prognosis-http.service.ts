@@ -18,6 +18,7 @@ export class Co2EmissionPrognosisHttp {
   constructor(private http: HttpClient) {}
 
   get(): Observable<Co2EmissionPrognosisRecords> {
+    // TODO: remove newlines
     const sql = `SELECT "Minutes5UTC" AS "minutes5Utc"
         ,"CO2Emission" AS "co2Emission"
         ,"PriceArea" AS "priceArea"
