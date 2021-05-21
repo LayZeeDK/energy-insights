@@ -50,8 +50,16 @@
             "tsConfig": "apps/energy-insights-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "apps/energy-insights-app/src/favicon.ico",
-              "apps/energy-insights-app/src/assets"
+              {
+                "glob": "favicon.ico",
+                "input": "libs/root/assets/src",
+                "output": "./"
+              },
+              {
+                "glob": "**/*",
+                "input": "libs/root/assets/src/assets",
+                "output": "assets"
+              }
             ],
             "styles": ["apps/energy-insights-app/src/styles.scss"],
             "scripts": []
