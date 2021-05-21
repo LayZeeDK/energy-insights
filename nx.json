@@ -24,6 +24,9 @@
   "projects": {
     "energy-insights-app": {
       "tags": ["type:app"]
+    },
+    "root-assets": {
+      "tags": ["scope:root", "type:assets"]
     }
   }
 }
