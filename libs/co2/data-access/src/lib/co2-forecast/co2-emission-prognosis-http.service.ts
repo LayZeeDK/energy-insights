@@ -10,9 +10,6 @@ import { createCo2ForecastSqlQuery } from './create-co2-forecast-sql-query';
 import { DateQuery } from './date-query';
 import { energiDataServiceEndpoint } from './energi-data-service-endpoint';
 
-// sql
-// SELECT "Minutes5UTC", "Minutes5DK", "PriceArea", "CO2Emission" FROM "co2emisprog" ORDER BY "Minutes5UTC" DESC LIMIT 100
-
 @Injectable({
   providedIn: 'root',
 })
