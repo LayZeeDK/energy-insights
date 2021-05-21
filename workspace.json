@@ -61,7 +61,9 @@
                 "output": "assets"
               }
             ],
-            "styles": ["libs/root/styles/src/index.scss"],
+            "styles": [
+              "libs/root/styles/src/index.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -126,7 +128,9 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/energy-insights-app"],
+          "outputs": [
+            "coverage/apps/energy-insights-app"
+          ],
           "options": {
             "jestConfig": "apps/energy-insights-app/jest.config.js",
             "passWithNoTests": true
@@ -145,6 +149,33 @@
       "root": "libs/root/styles",
       "sourceRoot": "libs/root/styles/src",
       "targets": {}
+    },
+    "root-environments": {
+      "projectType": "library",
+      "root": "libs/root/environments",
+      "sourceRoot": "libs/root/environments/src",
+      "prefix": "nrg",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/root/environments"
+          ],
+          "options": {
+            "jestConfig": "libs/root/environments/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/root/environments/src/**/*.ts",
+              "libs/root/environments/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }

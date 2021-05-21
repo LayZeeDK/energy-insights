@@ -30,6 +30,9 @@
     },
     "root-styles": {
       "tags": ["scope:root", "type:styles"]
+    },
+    "root-environments": {
+      "tags": ["scope:root", "type:environments"]
     }
   }
 }
