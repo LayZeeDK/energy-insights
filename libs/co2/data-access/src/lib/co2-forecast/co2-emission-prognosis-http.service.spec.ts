@@ -43,7 +43,12 @@ describe(Co2EmissionPrognosisHttp.name, () => {
     };
 
     // Act
-    const whenResponse = http.get().toPromise();
+    const whenResponse = http
+      .get({
+        from: new Date(),
+        to: new Date(),
+      })
+      .toPromise();
     const testRequest = controller.expectOne(
       request =>
         request.method === 'GET' &&
@@ -83,7 +88,12 @@ describe(Co2EmissionPrognosisHttp.name, () => {
     };
 
     // Act
-    const whenResponse = http.get().toPromise();
+    const whenResponse = http
+      .get({
+        from: new Date(),
+        to: new Date(),
+      })
+      .toPromise();
     const testRequest = controller.expectOne(
       request =>
         request.method === 'GET' &&
@@ -103,7 +113,12 @@ describe(Co2EmissionPrognosisHttp.name, () => {
     };
 
     // Act
-    const whenErrorResponse = http.get().toPromise();
+    const whenErrorResponse = http
+      .get({
+        from: new Date(),
+        to: new Date(),
+      })
+      .toPromise();
     const testRequest = controller.expectOne(
       request =>
         request.method === 'GET' &&
