@@ -5,14 +5,10 @@ import { switchMap } from 'rxjs/operators';
 
 import { Co2EmissionPrognosisHttp } from './co2-emission-prognosis-http.service';
 import { Co2EmissionPrognosisRecords } from './co2-emission-prognosis-record';
+import { DateQuery } from './date-query';
 
 interface Co2ForecastState {
   readonly records: Co2EmissionPrognosisRecords;
-}
-
-interface QueryFilter {
-  readonly from: Date;
-  readonly to: Date;
 }
 
 @Injectable()
@@ -33,7 +29,7 @@ export class Co2ForecastStore extends ComponentStore<Co2ForecastState> {
     });
   }
 
-  private loadRecordsEveryMinute = this.effect<QueryFilter>(queryFilter$ =>
+  private loadRecordsEveryMinute = this.effect<DateQuery>(queryFilter$ =>
     combineLatest([queryFilter$, timer(0, 60 * 1000)]).pipe(
       switchMap(queryFilter =>
         this.http.get().pipe(
