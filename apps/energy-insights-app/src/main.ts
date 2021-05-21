@@ -1,8 +1,8 @@
 import { enableProdMode, ViewEncapsulation } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { environment } from '@energy-insights/root/environments';
 
 import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
 
 if (environment.production) {
   enableProdMode();

@@ -50,10 +50,18 @@
             "tsConfig": "apps/energy-insights-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "apps/energy-insights-app/src/favicon.ico",
-              "apps/energy-insights-app/src/assets"
+              {
+                "glob": "favicon.ico",
+                "input": "libs/root/assets/src",
+                "output": "./"
+              },
+              {
+                "glob": "**/*",
+                "input": "libs/root/assets/src/assets",
+                "output": "assets"
+              }
             ],
-            "styles": ["apps/energy-insights-app/src/styles.scss"],
+            "styles": ["libs/root/styles/src/index.scss"],
             "scripts": []
           },
           "configurations": {
@@ -72,8 +80,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "apps/energy-insights-app/src/environments/environment.ts",
-                  "with": "apps/energy-insights-app/src/environments/environment.prod.ts"
+                  "replace": "libs/root/environments/src/lib/environment.ts",
+                  "with": "libs/root/environments/src/lib/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -122,6 +130,43 @@
           "options": {
             "jestConfig": "apps/energy-insights-app/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "root-assets": {
+      "projectType": "library",
+      "root": "libs/root/assets",
+      "sourceRoot": "libs/root/assets/src",
+      "targets": {}
+    },
+    "root-styles": {
+      "projectType": "library",
+      "root": "libs/root/styles",
+      "sourceRoot": "libs/root/styles/src",
+      "targets": {}
+    },
+    "root-environments": {
+      "projectType": "library",
+      "root": "libs/root/environments",
+      "sourceRoot": "libs/root/environments/src",
+      "prefix": "nrg",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/root/environments"],
+          "options": {
+            "jestConfig": "libs/root/environments/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/root/environments/src/**/*.ts",
+              "libs/root/environments/src/**/*.html"
+            ]
           }
         }
       }
