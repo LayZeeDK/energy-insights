@@ -139,6 +139,12 @@
       "root": "libs/root/assets",
       "sourceRoot": "libs/root/assets/src",
       "targets": {}
+    },
+    "root-styles": {
+      "projectType": "library",
+      "root": "libs/root/styles",
+      "sourceRoot": "libs/root/styles/src",
+      "targets": {}
     }
   }
 }
