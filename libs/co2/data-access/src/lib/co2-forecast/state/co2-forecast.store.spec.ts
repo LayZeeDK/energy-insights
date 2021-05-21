@@ -3,8 +3,8 @@ import { TestBed } from '@angular/core/testing';
 import { Observable, of, throwError } from 'rxjs';
 import { first, skip, take } from 'rxjs/operators';
 
-import { Co2EmissionPrognosisHttp } from './co2-emission-prognosis-http.service';
-import { Co2EmissionPrognosisRecords } from './co2-emission-prognosis-record';
+import { Co2EmissionPrognosisHttp } from '../http/co2-emission-prognosis-http.service';
+import { Co2EmissionPrognosisRecords } from '../http/co2-emission-prognosis-record';
 import { Co2ForecastStore } from './co2-forecast.store';
 
 describe(Co2ForecastStore.name, () => {

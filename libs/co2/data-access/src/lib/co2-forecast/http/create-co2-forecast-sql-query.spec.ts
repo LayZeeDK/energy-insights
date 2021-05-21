@@ -1,5 +1,5 @@
+import { DateQuery } from '../date-query';
 import { createCo2ForecastSqlQuery } from './create-co2-forecast-sql-query';
-import { DateQuery } from './date-query';
 
 describe(createCo2ForecastSqlQuery.name, () => {
   it('adds a date range start filter', () => {

@@ -1,4 +1,4 @@
-import { DateQuery } from './date-query';
+import { DateQuery } from '../date-query';
 
 export function createCo2ForecastSqlQuery(dateQuery: DateQuery): string {
   return `SELECT "Minutes5UTC" AS "minutes5Utc"

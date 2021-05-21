@@ -3,9 +3,9 @@ import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { combineLatest, Observable, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { Co2EmissionPrognosisHttp } from './co2-emission-prognosis-http.service';
-import { Co2EmissionPrognosisRecords } from './co2-emission-prognosis-record';
-import { DateQuery } from './date-query';
+import { DateQuery } from '../date-query';
+import { Co2EmissionPrognosisHttp } from '../http/co2-emission-prognosis-http.service';
+import { Co2EmissionPrognosisRecords } from '../http/co2-emission-prognosis-record';
 
 interface Co2ForecastState {
   readonly records: Co2EmissionPrognosisRecords;
@@ -29,10 +29,10 @@ export class Co2ForecastStore extends ComponentStore<Co2ForecastState> {
     });
   }
 
-  private loadRecordsEveryMinute = this.effect<DateQuery>(queryFilter$ =>
-    combineLatest([queryFilter$, timer(0, 60 * 1000)]).pipe(
-      switchMap(queryFilter =>
-        this.http.get().pipe(
+  private loadRecordsEveryMinute = this.effect<DateQuery>(dateQuery$ =>
+    combineLatest([dateQuery$, timer(0, 60 * 1000)]).pipe(
+      switchMap(([dateQuery]) =>
+        this.http.get(dateQuery).pipe(
           tapResponse(
             records => this.updateRecords(records),
             () => this.updateRecords([])

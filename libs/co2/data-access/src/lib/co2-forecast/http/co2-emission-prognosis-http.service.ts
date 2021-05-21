@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
+import { DateQuery } from '../date-query';
 import { CkanErrorResponse } from './ckan-errors-response';
 import { CkanResponse } from './ckan-response';
 import { Co2EmissionPrognosisRecord, Co2EmissionPrognosisRecords } from './co2-emission-prognosis-record';
 import { createCo2ForecastSqlQuery } from './create-co2-forecast-sql-query';
-import { DateQuery } from './date-query';
 import { energiDataServiceEndpoint } from './energi-data-service-endpoint';
 import { trimSqlParameter } from './trim-sql-parameter';
 
