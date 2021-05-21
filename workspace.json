@@ -61,7 +61,7 @@
                 "output": "assets"
               }
             ],
-            "styles": ["apps/energy-insights-app/src/styles.scss"],
+            "styles": ["libs/root/styles/src/index.scss"],
             "scripts": []
           },
           "configurations": {
