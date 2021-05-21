@@ -9,6 +9,7 @@ import { Co2EmissionPrognosisRecord, Co2EmissionPrognosisRecords } from './co2-e
 import { createCo2ForecastSqlQuery } from './create-co2-forecast-sql-query';
 import { DateQuery } from './date-query';
 import { energiDataServiceEndpoint } from './energi-data-service-endpoint';
+import { trimSqlParameter } from './trim-sql-parameter';
 
 @Injectable({
   providedIn: 'root',
@@ -17,8 +18,7 @@ export class Co2EmissionPrognosisHttp {
   constructor(private http: HttpClient) {}
 
   get(dateQuery: DateQuery): Observable<Co2EmissionPrognosisRecords> {
-    // TODO: remove newlines
-    const sql = createCo2ForecastSqlQuery(dateQuery);
+    const sql = trimSqlParameter(createCo2ForecastSqlQuery(dateQuery));
 
     return this.http
       .get<CkanResponse<Co2EmissionPrognosisRecord> | CkanErrorResponse>(
