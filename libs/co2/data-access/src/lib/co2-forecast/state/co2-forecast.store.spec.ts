@@ -7,6 +7,8 @@ import { Co2EmissionPrognosisHttp } from '../http/co2-emission-prognosis-http.se
 import { Co2EmissionPrognosisRecords } from '../http/co2-emission-prognosis-record';
 import { Co2ForecastStore } from './co2-forecast.store';
 
+// TODO: test HTTP request every minute
+
 describe(Co2ForecastStore.name, () => {
   function setup({
     httpGetSpy = jest.fn().mockReturnValue(of([])),
