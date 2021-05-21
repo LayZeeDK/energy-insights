@@ -1,1 +1,1 @@
-export * from './lib/root-environments.module';
+export * from './lib/environment';
