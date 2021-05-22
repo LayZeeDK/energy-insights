@@ -25,6 +25,7 @@ specifiers:
   '@nrwl/tao': ~12.3.3
   '@nrwl/workspace': ~12.3.3
   '@types/jest': ~26.0.8
+  '@types/luxon': ^1.26.5
   '@types/node': ~14.14.33
   '@typescript-eslint/eslint-plugin': ~4.19.0
   '@typescript-eslint/parser': ~4.19.0
@@ -33,6 +34,7 @@ specifiers:
   eslint-config-prettier: ~8.1.0
   jest: ~26.2.2
   jest-preset-angular: ~8.4.0
+  luxon: ^1.27.0
   prettier: ~2.2.1
   rxjs: ~6.6.0
   ts-jest: ~26.5.5
@@ -52,6 +54,7 @@ dependencies:
   '@angular/router': 12.0.1_8f0ae44b0a0ff79ea136cd6eef9577c6
   '@ngrx/component-store': 12.0.0_@angular+core@12.0.1+rxjs@6.6.7
   '@nrwl/angular': 12.3.4_ce8ce00fed6345a82fe6a9fbf7a8560c
+  luxon: 1.27.0
   rxjs: 6.6.7
   tslib: 2.2.0
   zone.js: 0.11.4
@@ -71,6 +74,7 @@ devDependencies:
   '@nrwl/tao': 12.3.4
   '@nrwl/workspace': 12.3.4_prettier@2.2.1
   '@types/jest': 26.0.23
+  '@types/luxon': 1.26.5
   '@types/node': 14.14.45
   '@typescript-eslint/eslint-plugin': 4.19.0_f2ad7386ef3401c53424c22cc09210d8
   '@typescript-eslint/parser': 4.19.0_eslint@7.22.0+typescript@4.2.4
@@ -2931,6 +2935,10 @@ packages:
   /@types/json5/0.0.29:
     resolution: {integrity: sha1-7ihweulOEdK4J7y+UnC86n8+ce4=}
     dev: false
+
+  /@types/luxon/1.26.5:
+    resolution: {integrity: sha512-XeQxxRMyJi1znfzHw4CGDLyup/raj84SnjjkI2fDootZPGlB0yqtvlvEIAmzHDa5wiEI5JJevZOWxpcofsaV+A==}
+    dev: true
 
   /@types/minimatch/3.0.4:
     resolution: {integrity: sha512-1z8k4wzFnNjVK/tlxvrWuK5WMt6mydWWP7+zvH5eFep4oj+UkrfiJTRtjCeBXNpwaA/FYqqtb4/QS4ianFpIRA==}
@@ -7195,6 +7203,10 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
+
+  /luxon/1.27.0:
+    resolution: {integrity: sha512-VKsFsPggTA0DvnxtJdiExAucKdAnwbCCNlMM5ENvHlxubqWd0xhZcdb4XgZ7QFNhaRhilXCFxHuoObP5BNA4PA==}
+    dev: false
 
   /magic-string/0.25.7:
     resolution: {integrity: sha512-4CrMT5DOHTDk4HYDlzmwu4FVCcIYI8gauveasrdCu2IKIFOJ3f0v/8MDGJCDL9oD2ppz/Av1b0Nj345H9M+XIA==}
