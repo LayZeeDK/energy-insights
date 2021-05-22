@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DanishDateStore } from '@energy-insights/co2/util-date-times';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { DateTime, Duration, Interval } from 'luxon';
 import { combineLatest, Observable, timer } from 'rxjs';
@@ -6,21 +7,15 @@ import { switchMap } from 'rxjs/operators';
 
 import { Co2EmissionPrognosisHttp } from '../http/co2-emission-prognosis-http.service';
 import { Co2EmissionPrognosisRecords } from '../http/co2-emission-prognosis-record';
-import { danishZone } from './../date-time-util/danish-zone';
 
 const twoDays = Duration.fromISO('P2D');
 
 interface Co2ForecastState {
-  readonly danishToday: DateTime;
   readonly records: Co2EmissionPrognosisRecords;
 }
 
 @Injectable()
 export class Co2ForecastStore extends ComponentStore<Co2ForecastState> {
-  private danishToday$: Observable<DateTime> = this.select(
-    state => state.danishToday
-  );
-
   records$: Observable<Co2EmissionPrognosisRecords> = this.select(
     state => state.records,
     {
@@ -28,10 +23,13 @@ export class Co2ForecastStore extends ComponentStore<Co2ForecastState> {
     }
   );
 
-  constructor(private http: Co2EmissionPrognosisHttp) {
-    super(createInitialState(DateTime.now()));
+  constructor(
+    private http: Co2EmissionPrognosisHttp,
+    danishDate: DanishDateStore
+  ) {
+    super(initialState);
 
-    this.loadRecordsEveryMinute(this.danishToday$);
+    this.loadRecordsEveryMinute(danishDate.today$);
   }
 
   private loadRecordsEveryMinute = this.effect<DateTime>(danishToday$ =>
@@ -57,9 +55,6 @@ export class Co2ForecastStore extends ComponentStore<Co2ForecastState> {
   );
 }
 
-function createInitialState(localNow: DateTime): Co2ForecastState {
-  return {
-    danishToday: localNow.setZone(danishZone).startOf('day'),
-    records: [],
-  };
-}
+const initialState: Co2ForecastState = {
+  records: [],
+};
