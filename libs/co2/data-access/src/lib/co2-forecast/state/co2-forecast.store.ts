@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { DateTime, Interval } from 'luxon';
+import { DateTime, Duration, Interval } from 'luxon';
 import { combineLatest, Observable, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { Co2EmissionPrognosisHttp } from '../http/co2-emission-prognosis-http.service';
 import { Co2EmissionPrognosisRecords } from '../http/co2-emission-prognosis-record';
-import { createCo2ForecastInterval } from './create-co2-forecast-interval';
+import { danishZone } from './../date-time-util/danish-zone';
+
+const twoDays = Duration.fromISO('P2D');
 
 interface Co2ForecastState {
-  readonly interval: Interval;
+  readonly danishToday: DateTime;
   readonly records: Co2EmissionPrognosisRecords;
 }
 
 @Injectable()
 export class Co2ForecastStore extends ComponentStore<Co2ForecastState> {
-  private interval$: Observable<Interval> = this.select(
-    state => state.interval
+  private danishToday$: Observable<DateTime> = this.select(
+    state => state.danishToday
   );
 
   records$: Observable<Co2EmissionPrognosisRecords> = this.select(
@@ -29,18 +31,20 @@ export class Co2ForecastStore extends ComponentStore<Co2ForecastState> {
   constructor(private http: Co2EmissionPrognosisHttp) {
     super(createInitialState(DateTime.now()));
 
-    this.loadRecordsEveryMinute(this.interval$);
+    this.loadRecordsEveryMinute(this.danishToday$);
   }
 
-  private loadRecordsEveryMinute = this.effect<Interval>(interval$ =>
-    combineLatest([interval$, timer(0, 60 * 1000)]).pipe(
-      switchMap(([interval]) =>
-        this.http.get(interval).pipe(
-          tapResponse(
-            records => this.updateRecords(records),
-            () => this.updateRecords([])
+  private loadRecordsEveryMinute = this.effect<DateTime>(danishToday$ =>
+    combineLatest([danishToday$, timer(0, 60 * 1000)]).pipe(
+      switchMap(([danishToday]) =>
+        this.http
+          .get(Interval.fromDateTimes(danishToday, danishToday.plus(twoDays)))
+          .pipe(
+            tapResponse(
+              records => this.updateRecords(records),
+              () => this.updateRecords([])
+            )
           )
-        )
       )
     )
   );
@@ -53,9 +57,9 @@ export class Co2ForecastStore extends ComponentStore<Co2ForecastState> {
   );
 }
 
-function createInitialState(now: DateTime): Co2ForecastState {
+function createInitialState(localNow: DateTime): Co2ForecastState {
   return {
-    interval: createCo2ForecastInterval(now),
+    danishToday: localNow.setZone(danishZone).startOf('day'),
     records: [],
   };
 }
