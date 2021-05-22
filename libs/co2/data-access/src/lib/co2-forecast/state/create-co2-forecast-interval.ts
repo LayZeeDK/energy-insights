@@ -1,15 +1,8 @@
-import { DateQuery } from '../date-query';
-import { localDateOf } from '../date-util/local-date-of';
+import { DateTime, Duration, Interval } from 'luxon';
 
-export function createCo2ForecastDateQuery(now: Date): DateQuery {
-  const localToday = localDateOf(now);
-  const twoDaysMs = 2 * 24 * 60 * 60 * 1000;
-  const localDayAfterTomorrow = localDateOf(
-    new Date(now.valueOf() + twoDaysMs)
-  );
+export function createCo2ForecastInterval(now: DateTime): Interval {
+  const localToday = now.startOf('day');
+  const localDayAfterTomorrow = localToday.plus(Duration.fromISO('P2D'));
 
-  return {
-    from: localToday,
-    to: localDayAfterTomorrow,
-  };
+  return Interval.fromDateTimes(localToday, localDayAfterTomorrow);
 }
