@@ -1,6 +1,12 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
-import { Observable, of, throwError } from 'rxjs';
+import {
+  discardPeriodicTasks,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { Interval } from 'luxon';
+import { Observable, of, range, throwError } from 'rxjs';
 import { first, skip, take } from 'rxjs/operators';
 
 import { Co2EmissionPrognosisHttp } from '../http/co2-emission-prognosis-http.service';
@@ -15,7 +21,7 @@ describe(Co2ForecastStore.name, () => {
   }: {
     readonly httpGetSpy?: jest.Mock<
       Observable<Co2EmissionPrognosisRecords>,
-      []
+      [Interval]
     >;
   } = {}) {
     TestBed.configureTestingModule({
@@ -28,6 +34,7 @@ describe(Co2ForecastStore.name, () => {
     const store = TestBed.inject(Co2ForecastStore);
 
     return {
+      httpGetSpy,
       store,
     };
   }
@@ -90,4 +97,26 @@ describe(Co2ForecastStore.name, () => {
       expect(actualRecords).toEqual([]);
     });
   });
+
+  it('it queries the CO2 Emission Prognosis API every minute', fakeAsync(() => {
+    // Arrange
+    const oneMinuteMs = 60 * 1000;
+    const oneHourMinutes = 60;
+    const initialRequestCount = 1;
+
+    // Act
+    const { httpGetSpy } = setup();
+    // Initial effect
+    tick(0);
+
+    range(1, oneHourMinutes).forEach(() => tick(oneMinuteMs));
+
+    // Assert
+    expect(httpGetSpy).toHaveBeenCalledTimes(
+      initialRequestCount + oneHourMinutes
+    );
+
+    // Teardown
+    discardPeriodicTasks();
+  }));
 });
