@@ -3,7 +3,7 @@ import { DanishDateStore } from '@energy-insights/co2/util-date-times';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { DateTime, Duration, Interval } from 'luxon';
 import { combineLatest, Observable, timer } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { Co2EmissionPrognosisHttp } from '../http/co2-emission-prognosis-http.service';
 import { Co2EmissionPrognosisRecords } from '../http/co2-emission-prognosis-record';
@@ -34,15 +34,16 @@ export class Co2ForecastStore extends ComponentStore<Co2ForecastState> {
 
   private loadRecordsEveryMinute = this.effect<DateTime>(danishToday$ =>
     combineLatest([danishToday$, timer(0, 60 * 1000)]).pipe(
-      switchMap(([danishToday]) =>
-        this.http
-          .get(Interval.fromDateTimes(danishToday, danishToday.plus(twoDays)))
-          .pipe(
-            tapResponse(
-              records => this.updateRecords(records),
-              () => this.updateRecords([])
-            )
+      map(([danishToday]) =>
+        Interval.fromDateTimes(danishToday, danishToday.plus(twoDays))
+      ),
+      switchMap(forecastInterval =>
+        this.http.get(forecastInterval).pipe(
+          tapResponse(
+            records => this.updateRecords(records),
+            () => this.updateRecords([])
           )
+        )
       )
     )
   );
