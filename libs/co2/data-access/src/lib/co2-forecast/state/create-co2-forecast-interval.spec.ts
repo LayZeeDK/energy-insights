@@ -1,4 +1,4 @@
-import { createCo2ForecastDateQuery } from './create-co2-forecast-date-query';
+import { createCo2ForecastDateQuery } from './create-co2-forecast-interval';
 
 describe(createCo2ForecastDateQuery.name, () => {
   it('the start of today is the beginning of the forecast', () => {
