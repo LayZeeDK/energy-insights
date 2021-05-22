@@ -1,10 +1,16 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { DateTime, Interval } from 'luxon';
 
 import { CkanErrorResponse } from './ckan-errors-response';
 import { Co2EmissionPrognosisHttp } from './co2-emission-prognosis-http.service';
 import { Co2EmissionPrognosisRecord } from './co2-emission-prognosis-record';
 import { energiDataServiceEndpoint } from './energi-data-service-endpoint';
+
+const dummyInterval = Interval.fromDateTimes(DateTime.now(), DateTime.now());
 
 describe(Co2EmissionPrognosisHttp.name, () => {
   beforeEach(() => {
@@ -43,12 +49,7 @@ describe(Co2EmissionPrognosisHttp.name, () => {
     };
 
     // Act
-    const whenResponse = http
-      .get({
-        from: new Date(),
-        to: new Date(),
-      })
-      .toPromise();
+    const whenResponse = http.get(dummyInterval).toPromise();
     const testRequest = controller.expectOne(
       request =>
         request.method === 'GET' &&
@@ -88,12 +89,7 @@ describe(Co2EmissionPrognosisHttp.name, () => {
     };
 
     // Act
-    const whenResponse = http
-      .get({
-        from: new Date(),
-        to: new Date(),
-      })
-      .toPromise();
+    const whenResponse = http.get(dummyInterval).toPromise();
     const testRequest = controller.expectOne(
       request =>
         request.method === 'GET' &&
@@ -113,12 +109,7 @@ describe(Co2EmissionPrognosisHttp.name, () => {
     };
 
     // Act
-    const whenErrorResponse = http
-      .get({
-        from: new Date(),
-        to: new Date(),
-      })
-      .toPromise();
+    const whenErrorResponse = http.get(dummyInterval).toPromise();
     const testRequest = controller.expectOne(
       request =>
         request.method === 'GET' &&
