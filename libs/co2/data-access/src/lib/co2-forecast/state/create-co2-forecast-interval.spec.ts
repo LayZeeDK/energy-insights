@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 
+import { danishZone } from './../date-time-util/danish-zone';
 import { createCo2ForecastInterval } from './create-co2-forecast-interval';
-import { danishZone } from './danish-zone';
 
 describe(createCo2ForecastInterval.name, () => {
   it('the start of today is the beginning of the forecast', () => {
