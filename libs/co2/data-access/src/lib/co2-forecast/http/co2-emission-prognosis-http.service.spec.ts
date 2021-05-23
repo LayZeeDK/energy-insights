@@ -4,6 +4,7 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { DateTime, Interval } from 'luxon';
+import { first } from 'rxjs/operators';
 
 import { CkanErrorResponse } from './ckan-errors-response';
 import { Co2EmissionPrognosisHttp } from './co2-emission-prognosis-http.service';
@@ -11,6 +12,7 @@ import {
   Co2EmissionPrognosisRecord,
   Co2EmissionPrognosisRecords,
 } from './co2-emission-prognosis-record';
+import { Co2EmissionPrognosisResponse } from './co2-emission-prognosis-response-item';
 import { energiDataServiceEndpoint } from './energi-data-service-endpoint';
 
 const dummyInterval = Interval.fromDateTimes(DateTime.now(), DateTime.now());
@@ -34,13 +36,12 @@ describe(Co2EmissionPrognosisHttp.name, () => {
 
   it('maps successful responses to response items', () => {
     // Arrange
-    const records: Co2EmissionPrognosisRecords = [
-      {
-        co2Emission: 100,
-        minutes5Utc: '2021-05-20T22:20:00+02:00',
-        priceArea: 'DK1',
-      },
-    ];
+    const record: Co2EmissionPrognosisRecord = {
+      co2Emission: 100,
+      minutes5Utc: '2021-05-20T22:20:00+02:00',
+      priceArea: 'DK1',
+    };
+    const records: Co2EmissionPrognosisRecords = [record];
     const ckanResponse = {
       help: 'help-me',
       result: {
@@ -52,7 +53,11 @@ describe(Co2EmissionPrognosisHttp.name, () => {
     };
 
     // Act
-    const whenResponse = http.get(dummyInterval).toPromise();
+    let actualResponse: Co2EmissionPrognosisResponse = [];
+    http
+      .get(dummyInterval)
+      .pipe(first())
+      .subscribe(response => (actualResponse = response));
     const testRequest = controller.expectOne(
       request =>
         request.method === 'GET' &&
@@ -61,15 +66,12 @@ describe(Co2EmissionPrognosisHttp.name, () => {
     testRequest.flush(ckanResponse);
 
     // Assert
-    expect(whenResponse).resolves.toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          co2Emission: expect.any(Number),
-          minutes5Utc: expect.any(Date),
-          priceArea: expect.any(String),
-        } as Co2EmissionPrognosisRecord),
-      ])
-    );
+    expect(actualResponse).toEqual([
+      {
+        ...record,
+        minutes5Utc: DateTime.fromISO(record.minutes5Utc),
+      },
+    ] as Co2EmissionPrognosisResponse);
   });
 
   it('emits an array for successful responses', () => {
@@ -92,7 +94,11 @@ describe(Co2EmissionPrognosisHttp.name, () => {
     };
 
     // Act
-    const whenResponse = http.get(dummyInterval).toPromise();
+    let actualResponse: Co2EmissionPrognosisResponse = [];
+    http
+      .get(dummyInterval)
+      .pipe(first())
+      .subscribe(response => (actualResponse = response));
     const testRequest = controller.expectOne(
       request =>
         request.method === 'GET' &&
@@ -101,7 +107,7 @@ describe(Co2EmissionPrognosisHttp.name, () => {
     testRequest.flush(ckanResponse);
 
     // Assert
-    expect(whenResponse).resolves.toEqual(expect.any(Array));
+    expect(actualResponse).toEqual(expect.any(Array));
   });
 
   it('emits an error for error responses', () => {
