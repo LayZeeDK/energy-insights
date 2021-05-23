@@ -118,7 +118,11 @@ describe(Co2EmissionPrognosisHttp.name, () => {
     };
 
     // Act
-    const whenErrorResponse = http.get(dummyInterval).toPromise();
+    let actualError: Error = new Error();
+    http
+      .get(dummyInterval)
+      .pipe(first())
+      .subscribe({ error: error => (actualError = error) });
     const testRequest = controller.expectOne(
       request =>
         request.method === 'GET' &&
@@ -127,6 +131,6 @@ describe(Co2EmissionPrognosisHttp.name, () => {
     testRequest.flush(ckanErrorResponse);
 
     // Assert
-    expect(whenErrorResponse).rejects.toEqual(expect.any(Error));
+    expect(actualError.message).toBe('CKAN Error');
   });
 });
