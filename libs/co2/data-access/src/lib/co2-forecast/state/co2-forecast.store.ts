@@ -5,23 +5,21 @@ import { DateTime, Duration, Interval } from 'luxon';
 import { combineLatest, Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
+import { Co2Forecast } from '../domain/co2-forecast';
 import { Co2EmissionPrognosisHttp } from '../http/co2-emission-prognosis-http.service';
-import { Co2EmissionPrognosisRecords } from '../http/co2-emission-prognosis-record';
+import { Co2EmissionPrognosisResponse } from '../http/co2-emission-prognosis-response-item';
 
 const twoDays = Duration.fromISO('P2D');
 
 interface Co2ForecastState {
-  readonly records: Co2EmissionPrognosisRecords;
+  readonly forecast: Co2Forecast;
 }
 
 @Injectable()
 export class Co2ForecastStore extends ComponentStore<Co2ForecastState> {
-  records$: Observable<Co2EmissionPrognosisRecords> = this.select(
-    state => state.records,
-    {
-      debounce: true,
-    }
-  );
+  forecast$: Observable<Co2Forecast> = this.select(state => state.forecast, {
+    debounce: true,
+  });
 
   constructor(
     private http: Co2EmissionPrognosisHttp,
@@ -29,10 +27,10 @@ export class Co2ForecastStore extends ComponentStore<Co2ForecastState> {
   ) {
     super(initialState);
 
-    this.loadRecordsEveryMinute(danishDate.today$);
+    this.queryForecastEveryMinute(danishDate.today$);
   }
 
-  private loadRecordsEveryMinute = this.effect<DateTime>(danishToday$ =>
+  private queryForecastEveryMinute = this.effect<DateTime>(danishToday$ =>
     combineLatest([danishToday$, timer(0, 60 * 1000)]).pipe(
       map(([danishToday]) =>
         Interval.fromDateTimes(danishToday, danishToday.plus(twoDays))
@@ -40,22 +38,22 @@ export class Co2ForecastStore extends ComponentStore<Co2ForecastState> {
       switchMap(forecastInterval =>
         this.http.get(forecastInterval).pipe(
           tapResponse(
-            records => this.updateRecords(records),
-            () => this.updateRecords([])
+            result => this.updateForecast(result),
+            () => this.updateForecast([])
           )
         )
       )
     )
   );
 
-  private updateRecords = this.updater<Co2EmissionPrognosisRecords>(
-    (state, records): Co2ForecastState => ({
+  private updateForecast = this.updater<Co2EmissionPrognosisResponse>(
+    (state, response): Co2ForecastState => ({
       ...state,
-      records,
+      forecast: response,
     })
   );
 }
 
 const initialState: Co2ForecastState = {
-  records: [],
+  forecast: [],
 };

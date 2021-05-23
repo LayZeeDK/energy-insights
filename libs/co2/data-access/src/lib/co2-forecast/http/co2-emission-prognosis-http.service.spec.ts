@@ -7,7 +7,10 @@ import { DateTime, Interval } from 'luxon';
 
 import { CkanErrorResponse } from './ckan-errors-response';
 import { Co2EmissionPrognosisHttp } from './co2-emission-prognosis-http.service';
-import { Co2EmissionPrognosisRecord } from './co2-emission-prognosis-record';
+import {
+  Co2EmissionPrognosisRecord,
+  Co2EmissionPrognosisRecords,
+} from './co2-emission-prognosis-record';
 import { energiDataServiceEndpoint } from './energi-data-service-endpoint';
 
 const dummyInterval = Interval.fromDateTimes(DateTime.now(), DateTime.now());
@@ -29,9 +32,9 @@ describe(Co2EmissionPrognosisHttp.name, () => {
   let controller: HttpTestingController;
   let http: Co2EmissionPrognosisHttp;
 
-  it('maps successful responses to records', () => {
+  it('maps successful responses to response items', () => {
     // Arrange
-    const records = [
+    const records: Co2EmissionPrognosisRecords = [
       {
         co2Emission: 100,
         minutes5Utc: '2021-05-20T22:20:00+02:00',
@@ -71,7 +74,7 @@ describe(Co2EmissionPrognosisHttp.name, () => {
 
   it('emits an array for successful responses', () => {
     // Arrange
-    const records = [
+    const records: Co2EmissionPrognosisRecords = [
       {
         co2Emission: 110,
         minutes5Utc: '2021-05-20T22:25:00+02:00',

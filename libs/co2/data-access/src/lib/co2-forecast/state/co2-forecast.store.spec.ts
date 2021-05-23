@@ -5,22 +5,20 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { Interval } from 'luxon';
+import { DateTime, Interval } from 'luxon';
 import { Observable, of, range, throwError } from 'rxjs';
 import { first, skip, take } from 'rxjs/operators';
 
 import { Co2EmissionPrognosisHttp } from '../http/co2-emission-prognosis-http.service';
-import { Co2EmissionPrognosisRecords } from '../http/co2-emission-prognosis-record';
+import { Co2EmissionPrognosisResponse } from './../http/co2-emission-prognosis-response-item';
 import { Co2ForecastStore } from './co2-forecast.store';
-
-// TODO: test HTTP request every minute
 
 describe(Co2ForecastStore.name, () => {
   function setup({
     httpGetSpy = jest.fn().mockReturnValue(of([])),
   }: {
     readonly httpGetSpy?: jest.Mock<
-      Observable<Co2EmissionPrognosisRecords>,
+      Observable<Co2EmissionPrognosisResponse>,
       [Interval]
     >;
   } = {}) {
@@ -45,40 +43,41 @@ describe(Co2ForecastStore.name, () => {
     expect(store).not.toBeNull();
   });
 
-  describe('records$', () => {
-    it('initially emits 0 records', async () => {
+  describe('forecast$', () => {
+    it('initially emits 0 items', async () => {
       const { store } = setup();
 
-      const records = await store.records$.pipe(first()).toPromise();
+      const forecast = await store.forecast$.pipe(first()).toPromise();
 
-      expect(records).toEqual([]);
+      expect(forecast).toEqual([]);
     });
 
     it('it immediately emits records on success response from the CO2 Emission Prognosis API', async () => {
       // Arrange
-      const expectedRecords: Co2EmissionPrognosisRecords = [
+      const response: Co2EmissionPrognosisResponse = [
         {
           co2Emission: 80,
-          minutes5Utc: new Date('2021-05-20T22:45:00+02:00'),
+          minutes5Utc: DateTime.fromISO('2021-05-20T22:45:00+02:00'),
           priceArea: 'DK1',
         },
       ];
-      const httpGetSpy = jest.fn().mockReturnValue(of(expectedRecords));
+      const expectedForecast = response;
+      const httpGetSpy = jest.fn().mockReturnValue(of(response));
       const { store } = setup({
         httpGetSpy,
       });
 
       // Act
-      const actualRecords = await store.records$
+      const actualForecast = await store.forecast$
         .pipe(skip(1), take(1))
         .toPromise();
 
       // Assert
       expect(httpGetSpy).toHaveBeenCalledTimes(1);
-      expect(actualRecords).toEqual(expectedRecords);
+      expect(actualForecast).toEqual(expectedForecast);
     });
 
-    it('it clears the records on error response from the CO2 Emission Prognosis API', async () => {
+    it('it clears the forecast on error response from the CO2 Emission Prognosis API', async () => {
       // Arrange
       const httpGetSpy = jest
         .fn()
@@ -88,13 +87,13 @@ describe(Co2ForecastStore.name, () => {
       });
 
       // Act
-      const actualRecords = await store.records$
+      const actualForecast = await store.forecast$
         .pipe(skip(1), take(1))
         .toPromise();
 
       // Assert
       expect(httpGetSpy).toHaveBeenCalledTimes(1);
-      expect(actualRecords).toEqual([]);
+      expect(actualForecast).toEqual([]);
     });
   });
 
