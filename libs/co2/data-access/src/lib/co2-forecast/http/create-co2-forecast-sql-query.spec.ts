@@ -5,7 +5,7 @@ import { createCo2ForecastSqlQuery } from './create-co2-forecast-sql-query';
 const dummyInterval = Interval.fromDateTimes(DateTime.now(), DateTime.now());
 
 describe(createCo2ForecastSqlQuery.name, () => {
-  it('adds a date range start filter', () => {
+  it('adds an interval start filter', () => {
     const interval: Interval = Interval.fromISO(
       '2021-05-22T00:00:00+02:00/2021-05-24T00:00:00+02:00'
     );
@@ -15,7 +15,7 @@ describe(createCo2ForecastSqlQuery.name, () => {
     expect(sql).toContain(`"Minutes5UTC" >= '${interval.start.toISO()}'`);
   });
 
-  it('adds a date range end filter', () => {
+  it('adds an interval end filter', () => {
     const interval: Interval = Interval.fromISO(
       '2021-05-23T00:00:00+02:00/2021-05-25T00:00:00+02:00'
     );
