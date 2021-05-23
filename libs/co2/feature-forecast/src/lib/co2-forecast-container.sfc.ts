@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, NgModule, ViewEncapsulation } from 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  selector: 'nrg-forecast',
+  selector: 'nrg-co2-forecast',
   styles: [
     `
       :host {
@@ -12,7 +12,7 @@ import { ChangeDetectionStrategy, Component, NgModule, ViewEncapsulation } from 
       }
     `,
   ],
-  template: ``,
+  template: ` <h1>CO2 forecast</h1> `,
 })
 export class Co2ForecastContainerComponent {}
 
