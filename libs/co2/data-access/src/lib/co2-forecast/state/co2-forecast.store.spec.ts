@@ -44,7 +44,7 @@ describe(Co2ForecastStore.name, () => {
   });
 
   describe('forecast$', () => {
-    it('initially emits 0 items', async () => {
+    it('initially emits an empty forecast', async () => {
       const { store } = setup();
 
       const forecast = await store.forecast$.pipe(first()).toPromise();
@@ -52,7 +52,7 @@ describe(Co2ForecastStore.name, () => {
       expect(forecast).toEqual([]);
     });
 
-    it('it immediately emits records on success response from the CO2 Emission Prognosis API', async () => {
+    it('it immediately emits a forecast on success response from the CO2 Emission Prognosis API', async () => {
       // Arrange
       const response: Co2EmissionPrognosisResponse = [
         {
