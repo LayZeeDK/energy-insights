@@ -1,6 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, NgModule, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  NgModule,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Co2ForecastStore } from '@energy-insights/co2/data-access';
+import { Co2Forecast } from '@energy-insights/co2/domain';
+import { Observable } from 'rxjs';
 
 import { Co2ForecastScam } from './co2-forecast.sfc';
 
@@ -15,10 +22,21 @@ import { Co2ForecastScam } from './co2-forecast.sfc';
       }
     `,
   ],
-  template: `<nrg-co2-forecast-ui></nrg-co2-forecast-ui>`,
+  template: `<nrg-co2-forecast-ui
+    [forecast]="forecast$ | async"
+  ></nrg-co2-forecast-ui>`,
   viewProviders: [Co2ForecastStore],
 })
-export class Co2ForecastContainerComponent {}
+export class Co2ForecastContainerComponent {
+  #co2ForecastStore: Co2ForecastStore;
+
+  forecast$: Observable<Co2Forecast>;
+
+  constructor(co2ForecastStore: Co2ForecastStore) {
+    this.#co2ForecastStore = co2ForecastStore;
+    this.forecast$ = this.#co2ForecastStore.forecast$;
+  }
+}
 
 @NgModule({
   declarations: [Co2ForecastContainerComponent],
