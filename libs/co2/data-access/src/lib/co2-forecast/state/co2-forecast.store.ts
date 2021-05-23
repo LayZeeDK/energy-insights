@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Co2Forecast } from '@energy-insights/co2/domain';
 import { DanishDateStore } from '@energy-insights/co2/util-date-times';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { DateTime, Duration, Interval } from 'luxon';
 import { combineLatest, Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { Co2Forecast } from '../domain/co2-forecast';
 import { Co2EmissionPrognosisHttp } from '../http/co2-emission-prognosis-http.service';
 import { Co2EmissionPrognosisResponse } from '../http/co2-emission-prognosis-response-item';
 

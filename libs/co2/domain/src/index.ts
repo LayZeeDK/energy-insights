@@ -1,1 +1,1 @@
-export * from './lib/co2-domain.module';
+export * from './lib/co2-forecast';
