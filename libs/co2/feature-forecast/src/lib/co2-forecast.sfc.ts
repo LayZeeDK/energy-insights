@@ -30,11 +30,13 @@ import { Co2Forecast } from '@energy-insights/co2/domain';
           <th>Price area</th>
         </tr>
       </thead>
-      <tr *ngFor="let dataPoint of forecast">
-        <td>{{ dataPoint.minutes5Utc.toJSDate() | date: 'long' }}</td>
-        <td>{{ dataPoint.co2Emission | number: '1.2' }}</td>
-        <td>{{ dataPoint.priceArea }}</td>
-      </tr>
+      <tbody>
+        <tr *ngFor="let dataPoint of forecast">
+          <td>{{ dataPoint.minutes5Utc.toJSDate() | date: 'long' }}</td>
+          <td>{{ dataPoint.co2Emission | number: '1.2' }}</td>
+          <td>{{ dataPoint.priceArea }}</td>
+        </tr>
+      </tbody>
     </table>
   `,
 })
