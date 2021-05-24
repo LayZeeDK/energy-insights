@@ -28,13 +28,10 @@ import { Co2ForecastScam } from './co2-forecast.sfc';
   viewProviders: [Co2ForecastStore],
 })
 export class Co2ForecastContainerComponent {
-  #co2ForecastStore: Co2ForecastStore;
-
   forecast$: Observable<Co2Forecast>;
 
   constructor(co2ForecastStore: Co2ForecastStore) {
-    this.#co2ForecastStore = co2ForecastStore;
-    this.forecast$ = this.#co2ForecastStore.forecast$;
+    this.forecast$ = co2ForecastStore.forecast$;
   }
 }
 
