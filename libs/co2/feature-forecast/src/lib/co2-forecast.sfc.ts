@@ -31,7 +31,7 @@ import { Co2Forecast } from '@energy-insights/co2/domain';
         </tr>
       </thead>
       <tr *ngFor="let dataPoint of forecast">
-        <td>{{ dataPoint.minutes5Utc.toJSDate() | date }}</td>
+        <td>{{ dataPoint.minutes5Utc.toJSDate() | date: 'long' }}</td>
         <td>{{ dataPoint.co2Emission | number: '1.2' }}</td>
         <td>{{ dataPoint.priceArea }}</td>
       </tr>
