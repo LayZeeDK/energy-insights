@@ -12,7 +12,7 @@ describe(createCo2ForecastSqlQuery.name, () => {
 
     const sql = createCo2ForecastSqlQuery(interval);
 
-    expect(sql).toContain(`"Minutes5UTC" >= '${interval.start.toISO()}'`);
+    expect(sql).toContain(`"Minutes5UTC" >= '2021-05-21T22:00:00.000Z'`);
   });
 
   it('adds an interval end filter', () => {
@@ -22,7 +22,7 @@ describe(createCo2ForecastSqlQuery.name, () => {
 
     const sql = createCo2ForecastSqlQuery(interval);
 
-    expect(sql).toContain(`"Minutes5UTC" < '${interval.end.toISO()}'`);
+    expect(sql).toContain(`"Minutes5UTC" < '2021-05-24T22:00:00.000Z'`);
   });
 
   it('sorts with earliest records first', () => {
