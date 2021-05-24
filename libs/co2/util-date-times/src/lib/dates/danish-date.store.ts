@@ -21,13 +21,6 @@ export class DanishDateStore extends ComponentStore<DanishDateState> {
     this.setState(createInitialState(this.today()));
   }
 
-  private updateToday = this.updater<DateTime>(
-    (state, today): DanishDateState => ({
-      ...state,
-      today,
-    })
-  );
-
   private now(): DateTime {
     return DateTime.now().setZone(danishZone);
   }
