@@ -37,7 +37,6 @@ export class Co2ForecastContainerComponent {
 
 @NgModule({
   declarations: [Co2ForecastContainerComponent],
-  exports: [Co2ForecastContainerComponent],
   imports: [CommonModule, Co2ForecastScam],
 })
 export class Co2ForecastContainerScam {}
