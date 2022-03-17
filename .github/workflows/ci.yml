@@ -44,3 +44,13 @@ jobs:
 
       - name: Test projects
         run: yarn test
+  e2e:
+    name: End-to-end test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-dependencies
+
+      - name: End-to-end test application
+        run: yarn e2e
