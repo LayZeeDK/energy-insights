@@ -9,7 +9,7 @@
   "defaultProject": "energy-insights-app",
   "generators": {
     "@nrwl/angular:application": {
-      "e2eTestRunner": "none",
+      "e2eTestRunner": "cypress",
       "inlineStyle": true,
       "inlineTemplate": true,
       "linter": "eslint",
@@ -55,8 +55,8 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
         "accessToken": "ZWY1MmU0MDUtMWRhOS00M2E4LTk1YTMtZmYzNzk3MTQ1NWQ3fHJlYWQtd3JpdGU=",
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
         "canTrackAnalytics": true,
         "showUsageWarnings": true
       }

@@ -12,7 +12,10 @@
             "enforceBuildableLibDependency": true,
             "allow": [],
             "depConstraints": [
-              { "sourceTag": "*", "onlyDependOnLibsWithTags": ["*"] }
+              {
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": ["*"]
+              }
             ]
           }
         ]
@@ -24,9 +27,20 @@
       "rules": {}
     },
     {
+      "files": ["*.ts"],
+      "extends": ["plugin:ngrx/component-store-strict"]
+    },
+    {
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nrwl/nx/javascript"],
       "rules": {}
+    },
+    {
+      "files": ["*.js", "*.ts"],
+      "extends": ["plugin:sonarjs/recommended"],
+      "rules": {
+        "sonarjs/cognitive-complexity": ["error", 8]
+      }
     }
   ]
 }
