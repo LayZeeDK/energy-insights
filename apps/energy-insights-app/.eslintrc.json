@@ -13,7 +13,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "energyInsights",
+            "prefix": "nrg",
             "style": "camelCase"
           }
         ],
@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "energy-insights",
+            "prefix": "nrg",
             "style": "kebab-case"
           }
         ]
