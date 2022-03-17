@@ -1,5 +1,5 @@
-import { enableProdMode, ViewEncapsulation } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { enableProdMode } from '@angular/core';
+import { platformBrowser } from '@angular/platform-browser';
 import { environment } from '@energy-insights/root/environments';
 
 import { AppModule } from './app/app.module';
@@ -8,8 +8,9 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic()
+platformBrowser()
   .bootstrapModule(AppModule, {
-    defaultEncapsulation: ViewEncapsulation.None,
+    ngZoneEventCoalescing: true,
+    ngZoneRunCoalescing: true,
   })
-  .catch(err => console.error(err));
+  .catch((error: unknown) => console.error(error));

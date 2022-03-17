@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { danishZone } from '@energy-insights/co2/util-date-times';
 import { DateTime, Settings } from 'luxon';
 import { first } from 'rxjs/operators';
 
+import { danishZone } from '../zones/danish-zone';
 import { DanishDateStore } from './danish-date.store';
 
 describe(DanishDateStore.name, () => {

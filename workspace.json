@@ -1,38 +1,5 @@
 {
   "version": 2,
-  "cli": {
-    "defaultCollection": "@nrwl/angular"
-  },
-  "generators": {
-    "@nrwl/angular:application": {
-      "e2eTestRunner": "none",
-      "inlineStyle": true,
-      "inlineTemplate": true,
-      "linter": "eslint",
-      "prefix": "nrg",
-      "skipTests": true,
-      "strict": true,
-      "style": "scss",
-      "tags": "type:app",
-      "unitTestRunner": "jest",
-      "viewEncapsulation": "None"
-    },
-    "@nrwl/angular:library": {
-      "linter": "eslint",
-      "prefix": "nrg",
-      "strict": true,
-      "style": "scss",
-      "unitTestRunner": "jest"
-    },
-    "@schematics/angular:component": {
-      "changeDetection": "OnPush",
-      "displayBlock": true
-    },
-    "@nrwl/angular:component": {
-      "style": "scss"
-    }
-  },
-  "defaultProject": "energy-insights-app",
   "projects": {
     "co2-data-access": {
       "projectType": "library",
@@ -55,9 +22,38 @@
               "libs/co2/data-access/src/**/*.ts",
               "libs/co2/data-access/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
-      }
+      },
+      "tags": ["scope:co2", "type:data-access"]
+    },
+    "co2-util-date-times": {
+      "projectType": "library",
+      "root": "libs/co2/util-date-times",
+      "sourceRoot": "libs/co2/util-date-times/src",
+      "prefix": "nrg",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/co2/util-date-times"],
+          "options": {
+            "jestConfig": "libs/co2/util-date-times/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/co2/util-date-times/src/**/*.ts",
+              "libs/co2/util-date-times/src/**/*.html"
+            ]
+          },
+          "outputs": ["{options.outputFile}"]
+        }
+      },
+      "tags": ["scope:co2", "type:util"]
     },
     "energy-insights-app": {
       "projectType": "application",
@@ -147,7 +143,8 @@
               "apps/energy-insights-app/src/**/*.ts",
               "apps/energy-insights-app/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -157,19 +154,15 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["type:app"]
     },
     "root-assets": {
       "projectType": "library",
       "root": "libs/root/assets",
       "sourceRoot": "libs/root/assets/src",
-      "targets": {}
-    },
-    "root-styles": {
-      "projectType": "library",
-      "root": "libs/root/styles",
-      "sourceRoot": "libs/root/styles/src",
-      "targets": {}
+      "targets": {},
+      "tags": ["scope:root", "type:assets"]
     },
     "root-environments": {
       "projectType": "library",
@@ -192,34 +185,18 @@
               "libs/root/environments/src/**/*.ts",
               "libs/root/environments/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
-      }
+      },
+      "tags": ["scope:root", "type:environments"]
     },
-    "co2-util-date-times": {
+    "root-styles": {
       "projectType": "library",
-      "root": "libs/co2/util-date-times",
-      "sourceRoot": "libs/co2/util-date-times/src",
-      "prefix": "nrg",
-      "targets": {
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/co2/util-date-times"],
-          "options": {
-            "jestConfig": "libs/co2/util-date-times/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/co2/util-date-times/src/**/*.ts",
-              "libs/co2/util-date-times/src/**/*.html"
-            ]
-          }
-        }
-      }
+      "root": "libs/root/styles",
+      "sourceRoot": "libs/root/styles/src",
+      "targets": {},
+      "tags": ["scope:root", "type:styles"]
     }
   }
 }
