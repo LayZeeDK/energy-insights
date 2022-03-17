@@ -1,8 +1,7 @@
-name: Energy Insights CI
+name: CI
 
 env:
-  node-version: 14.x
-  NODE_OPTIONS: --max_old_space_size=6144
+  NODE_OPTIONS: --max-old-space-size=6144
   NX_BRANCH: ${{ github.event.number }}
   NX_RUN_GROUP: ${{ github.run_id }}
 
@@ -10,61 +9,38 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-  workflow_dispatch:
-    branches:
+  pull_request: {}
+  workflow_dispatch: {}
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.node-version }}
-      - name: Install PNPM
-        run: npm install --global pnpm
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile --verify-store-integrity false
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-dependencies
 
       - name: Build Angular app
-        run: pnpm build
+        run: yarn build
   lint:
+    name: 'PR: Lint'
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.node-version }}
-      - name: Install PNPM
-        run: npm install --global pnpm
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile --verify-store-integrity false
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-dependencies
 
       - name: Lint workspace and projects
-        run: pnpm lint
+        run: yarn lint
   test:
+    name: Test
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.node-version }}
-      - name: Install PNPM
-        run: npm install --global pnpm
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile --verify-store-integrity false
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-dependencies
 
       - name: Test projects
-        run: pnpm test
+        run: yarn test
