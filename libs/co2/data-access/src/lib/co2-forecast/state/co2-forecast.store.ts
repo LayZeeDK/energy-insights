@@ -7,7 +7,6 @@ import { combineLatest, Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { Co2EmissionPrognosisHttp } from '../http/co2-emission-prognosis-http.service';
-import { Co2EmissionPrognosisResponse } from '../http/co2-emission-prognosis-response-item';
 
 const twoDays = Duration.fromISO('P2D');
 
@@ -17,9 +16,7 @@ interface Co2ForecastState {
 
 @Injectable()
 export class Co2ForecastStore extends ComponentStore<Co2ForecastState> {
-  forecast$: Observable<Co2Forecast> = this.select(state => state.forecast, {
-    debounce: true,
-  });
+  forecast$: Observable<Co2Forecast> = this.select(state => state.forecast);
 
   constructor(
     private http: Co2EmissionPrognosisHttp,
@@ -38,18 +35,18 @@ export class Co2ForecastStore extends ComponentStore<Co2ForecastState> {
       switchMap(forecastInterval =>
         this.http.get(forecastInterval).pipe(
           tapResponse(
-            result => this.updateForecast(result),
-            () => this.updateForecast([])
+            response => this.#updateForecast(response),
+            () => this.#updateForecast([])
           )
         )
       )
     )
   );
 
-  private updateForecast = this.updater<Co2EmissionPrognosisResponse>(
-    (state, response): Co2ForecastState => ({
+  #updateForecast = this.updater<Co2Forecast>(
+    (state, forecast): Co2ForecastState => ({
       ...state,
-      forecast: response,
+      forecast,
     })
   );
 }

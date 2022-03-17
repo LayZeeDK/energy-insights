@@ -1,23 +1,20 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  NgModule,
-  ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgModule, ViewEncapsulation } from '@angular/core';
 import { Co2ForecastStore } from '@energy-insights/co2/data-access';
 import { Co2Forecast } from '@energy-insights/co2/domain';
 import { Observable } from 'rxjs';
 
 import { Co2ForecastScam } from './co2-forecast.sfc';
 
+const selector = 'nrg-co2-forecast';
+
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  selector: 'nrg-co2-forecast',
+  selector,
   styles: [
     `
-      :host {
+      ${selector} {
         display: block;
       }
     `,

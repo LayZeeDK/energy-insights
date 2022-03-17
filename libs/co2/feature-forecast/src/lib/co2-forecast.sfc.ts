@@ -1,20 +1,16 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  NgModule,
-  ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { Co2Forecast } from '@energy-insights/co2/domain';
+
+const selector = 'nrg-co2-forecast-ui';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  selector: 'nrg-co2-forecast-ui',
+  selector,
   styles: [
     `
-      :host {
+      ${selector} {
         display: block;
       }
     `,
@@ -32,7 +28,9 @@ import { Co2Forecast } from '@energy-insights/co2/domain';
       </thead>
       <tbody>
         <tr *ngFor="let dataPoint of forecast">
-          <td>{{ dataPoint.minutes5Utc.toJSDate() | date: 'long' }}</td>
+          <td data-testid="date-time-cell">
+            {{ dataPoint.minutes5Utc.toJSDate() | date: 'long' }}
+          </td>
           <td>{{ dataPoint.co2Emission | number: '1.2' }}</td>
           <td>{{ dataPoint.priceArea }}</td>
         </tr>
@@ -41,18 +39,19 @@ import { Co2Forecast } from '@energy-insights/co2/domain';
   `,
 })
 export class Co2ForecastComponent {
-  static ngAcceptInputType_forecast: Co2Forecast | null;
-
   #forecast: Co2Forecast = [];
 
+  // Input setter type hint
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  static ngAcceptInputType_forecast: Co2Forecast | null;
   @Input()
-  get forecast(): Co2Forecast {
-    return this.#forecast;
-  }
   set forecast(forecast: Co2Forecast) {
     forecast ??= [];
 
     this.#forecast = forecast;
+  }
+  get forecast(): Co2Forecast {
+    return this.#forecast;
   }
 }
 

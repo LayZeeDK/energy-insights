@@ -25,6 +25,9 @@
       ],
       "@energy-insights/root/environments": [
         "libs/root/environments/src/index.ts"
+      ],
+      "@energy-insights/shared/test-util-matchers": [
+        "libs/shared/test-util-matchers/src/index.ts"
       ]
     }
   },
