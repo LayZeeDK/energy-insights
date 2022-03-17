@@ -13,7 +13,7 @@
     "yarn": "1.22.17"
   },
   "scripts": {
-    "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
+    "postinstall": "node ./decorate-angular-cli.js && ngcc --first-only --properties es2015 module fesm2015 esm2015 browser main --create-ivy-entry-points --tsconfig apps/energy-insights-app/tsconfig.app.json --use-program-dependencies",
     "build": "nx build",
     "ci": "yarn build && yarn lint && yarn test && yarn e2e",
     "e2e": "nx e2e energy-insights-app-e2e",
