@@ -1,18 +1,19 @@
 name: CI
 
 env:
-  is-main-branch: ${{ github.event_name == 'push' && github.base_ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' }}
-  is-feature-branch: ${{ github.event_name == 'pull_request' && github.head_ref != 'main' || github.event_name == 'workflow_dispatch' && github.ref != 'refs/heads/main' }}
+  # Branching
+  is-merge: ${{ github.event_name == 'push' }}
+  is-pull-request: ${{ github.event_name == 'pull_request' }}
+  checkout-ref: ${{ github.event_name == 'pull_request' && github.pull_request.head.ref || '' }}
+
+  # Node.js
   NODE_OPTIONS: --max-old-space-size=6144
-  NX_BRANCH: ${{ github.event.number }}
-  NX_RUN_GROUP: ${{ github.run_id }}
 
 on:
   push:
     branches:
       - main
   pull_request: {}
-  workflow_dispatch: {}
 
 # concurrency:
 #   # Group concurrency on workflow, then:
@@ -28,15 +29,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: 'Check out source code and set up "nx affected" commands'
+        uses: ./.github/actions/setup-nx-affected
       - name: Set up dependencies
         uses: ./.github/actions/setup-dependencies
 
       - name: 'PR: Build application if affected by changes in feature branch'
-        if: env.is-feature-branch == 'true'
+        if: env.is-pull-request == 'true'
         run: yarn build
       - name: 'Merge: Build application'
-        if: env.is-main-branch == 'true'
+        if: env.is-merge == 'true'
         run: yarn build
 
   lint:
@@ -44,15 +46,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: 'Check out source code and set up "nx affected" commands'
+        uses: ./.github/actions/setup-nx-affected
       - name: Set up dependencies
         uses: ./.github/actions/setup-dependencies
 
       - name: 'PR: Lint workspace and affected projects'
-        if: env.is-feature-branch == 'true'
+        if: env.is-pull-request == 'true'
         run: yarn affected:lint
       - name: 'Merge: Lint workspace and all projects'
-        if: env.is-main-branch == 'true'
+        if: env.is-merge == 'true'
         run: yarn lint
 
   test:
@@ -60,15 +63,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: 'Check out source code and set up "nx affected" commands'
+        uses: ./.github/actions/setup-nx-affected
       - name: Set up dependencies
         uses: ./.github/actions/setup-dependencies
 
       - name: 'PR: Test affected projects'
-        if: env.is-feature-branch == 'true'
+        if: env.is-pull-request == 'true'
         run: yarn test
       - name: 'Merge: Test all projects'
-        if: env.is-main-branch == 'true'
+        if: env.is-merge == 'true'
         run: yarn test
 
   e2e:
@@ -76,13 +80,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: 'Check out source code and set up "nx affected" commands'
+        uses: ./.github/actions/setup-nx-affected
       - name: Set up dependencies
         uses: ./.github/actions/setup-dependencies
 
       - name: 'PR: End-to-end test application if affected by changes in feature branch'
-        if: env.is-feature-branch == 'true'
+        if: env.is-pull-request == 'true'
         run: yarn affected:e2e
       - name: 'Merge: End-to-end test application'
-        if: env.is-main-branch == 'true'
+        if: env.is-merge == 'true'
         run: yarn e2e
