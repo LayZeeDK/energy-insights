@@ -4,6 +4,9 @@ env:
   # Branching
   is-merge: ${{ github.event_name == 'push' }}
   is-pull-request: ${{ github.event_name == 'pull_request' }}
+
+  # Check out
+  checkout-fetch-depth: ${{ github.event_name == 'push' && 1 || 0 }}
   checkout-ref: ${{ github.event_name == 'pull_request' && github.pull_request.head.ref || '' }}
 
   # Node.js
@@ -15,13 +18,13 @@ on:
       - main
   pull_request: {}
 
-# concurrency:
-#   # Group concurrency on workflow, then:
-#   # - Is main branch run? Group `push` and `workflow_dispatch` events
-#   # - Is feature branch run? Group `pull_request` and `workflow_dispatch` events
-#   group: ${{ github.workflow }}-${{ ((github.event_name == 'push' && github.base_ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') && github.base_ref || github.ref) || github.head_ref || github.ref }}
-#   # Run main branch runs in sequence. Cancel in progress feature branch runs.
-#   cancel-in-progress: ${{ (github.event_name == 'push' && github.base_ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') && 'false' || 'true' }}
+concurrency:
+  # Group concurrency on workflow, then:
+  # - Is merge run? Group `push` events
+  # - Is pull request? Group `pull_request` events
+  group: ${{ github.workflow }}-${{ github.event_name == 'push' && github.base_ref || github.head_ref }}
+  # Run merge runs in sequence. Cancel in progress pull request runs.
+  cancel-in-progress: ${{ github.event_name != 'push' }}
 
 jobs:
   build:
@@ -32,8 +35,8 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v3
         with:
-          fetch-depth: ${{ env.is-merge == 'true' && 1 || 0 }}
-          ref: ${{ env.is-pull-request == 'true' && github.pull_request.head.ref || '' }}
+          fetch-depth: ${{ env.checkout-fetch-depth }}
+          ref: ${{ env.checkout-ref }}
       - name: 'PR: Derive appropriate SHAs for base and head for `nx affected` commands'
         if: github.event_name == 'pull_request'
         uses: nrwl/nx-set-shas@v2
@@ -55,8 +58,8 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v3
         with:
-          fetch-depth: ${{ env.is-merge == 'true' && 1 || 0 }}
-          ref: ${{ env.is-pull-request == 'true' && github.pull_request.head.ref || '' }}
+          fetch-depth: ${{ env.checkout-fetch-depth }}
+          ref: ${{ env.checkout-ref }}
       - name: 'PR: Derive appropriate SHAs for base and head for `nx affected` commands'
         if: github.event_name == 'pull_request'
         uses: nrwl/nx-set-shas@v2
@@ -78,8 +81,8 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v3
         with:
-          fetch-depth: ${{ env.is-merge == 'true' && 1 || 0 }}
-          ref: ${{ env.is-pull-request == 'true' && github.pull_request.head.ref || '' }}
+          fetch-depth: ${{ env.checkout-fetch-depth }}
+          ref: ${{ env.checkout-ref }}
       - name: 'PR: Derive appropriate SHAs for base and head for `nx affected` commands'
         if: github.event_name == 'pull_request'
         uses: nrwl/nx-set-shas@v2
@@ -101,8 +104,8 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v3
         with:
-          fetch-depth: ${{ env.is-merge == 'true' && 1 || 0 }}
-          ref: ${{ env.is-pull-request == 'true' && github.pull_request.head.ref || '' }}
+          fetch-depth: ${{ env.checkout-fetch-depth }}
+          ref: ${{ env.checkout-ref }}
       - name: 'PR: Derive appropriate SHAs for base and head for `nx affected` commands'
         if: github.event_name == 'pull_request'
         uses: nrwl/nx-set-shas@v2
