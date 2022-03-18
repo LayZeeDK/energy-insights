@@ -1,6 +1,8 @@
 name: CI
 
 env:
+  is-main-branch: ${{ github.ref == 'refs/heads/main' }}
+  is-feature-branch: ${{ github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' && github.ref != 'refs/heads/main' }}
   NODE_OPTIONS: --max-old-space-size=6144
   NX_BRANCH: ${{ github.event.number }}
   NX_RUN_GROUP: ${{ github.run_id }}
@@ -22,11 +24,15 @@ jobs:
       - name: Set up dependencies
         uses: ./.github/actions/setup-dependencies
 
-      - name: Build Angular app
+      - name: 'PR: Build application if affected by changes in feature branch'
+        if: env.is-feature-branch == 'true'
         run: yarn build
+      - name: 'Merge: Build application'
+        if: env.is-main-branch == 'true'
+        run: yarn build
+
   lint:
-    name: 'PR: Lint'
-    if: github.event_name == 'pull_request'
+    name: Lint
     runs-on: ubuntu-latest
 
     steps:
@@ -34,8 +40,13 @@ jobs:
       - name: Set up dependencies
         uses: ./.github/actions/setup-dependencies
 
-      - name: Lint workspace and projects
+      - name: 'PR: Lint workspace and affected projects'
+        if: env.is-feature-branch == 'true'
+        run: yarn affected:lint
+      - name: 'Merge: Lint workspace and all projects'
+        if: env.is-main-branch == 'true'
         run: yarn lint
+
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -45,8 +56,13 @@ jobs:
       - name: Set up dependencies
         uses: ./.github/actions/setup-dependencies
 
-      - name: Test projects
+      - name: 'PR: Test affected projects'
+        if: env.is-feature-branch == 'true'
         run: yarn test
+      - name: 'Merge: Test all projects'
+        if: env.is-main-branch == 'true'
+        run: yarn test
+
   e2e:
     name: End-to-end test
     runs-on: ubuntu-latest
@@ -56,5 +72,9 @@ jobs:
       - name: Set up dependencies
         uses: ./.github/actions/setup-dependencies
 
-      - name: End-to-end test application
+      - name: 'PR: End-to-end test application if affected by changes in feature branch'
+        if: env.is-feature-branch == 'true'
+        run: yarn affected:e2e
+      - name: 'Merge: End-to-end test application'
+        if: env.is-main-branch == 'true'
         run: yarn e2e
