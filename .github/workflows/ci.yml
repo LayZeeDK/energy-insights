@@ -1,8 +1,8 @@
 name: CI
 
 env:
-  is-main-branch: ${{ github.event_name == 'push' && github.base_ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch' github.ref == 'refs/heads/main' }}
-  is-feature-branch: ${{ github.event_name == 'pull_request' && github.head_ref != 'main' || github.event_name == 'workflow_dispatch' github.ref != 'refs/heads/main' }}
+  is-main-branch: ${{ github.event_name == 'push' && github.base_ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' }}
+  is-feature-branch: ${{ github.event_name == 'pull_request' && github.head_ref != 'main' || github.event_name == 'workflow_dispatch' && github.ref != 'refs/heads/main' }}
   NODE_OPTIONS: --max-old-space-size=6144
   NX_BRANCH: ${{ github.event.number }}
   NX_RUN_GROUP: ${{ github.run_id }}
@@ -13,6 +13,14 @@ on:
       - main
   pull_request: {}
   workflow_dispatch: {}
+
+# concurrency:
+#   # Group concurrency on workflow, then:
+#   # - Is main branch run? Group `push` and `workflow_dispatch` events
+#   # - Is feature branch run? Group `pull_request` and `workflow_dispatch` events
+#   group: ${{ github.workflow }}-${{ ((github.event_name == 'push' && github.base_ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') && github.base_ref || github.ref) || github.head_ref || github.ref }}
+#   # Run main branch runs in sequence. Cancel in progress feature branch runs.
+#   cancel-in-progress: ${{ (github.event_name == 'push' && github.base_ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') && 'false' || 'true' }}
 
 jobs:
   build:
