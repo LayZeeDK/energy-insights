@@ -29,8 +29,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 'Check out source code and set up "nx affected" commands'
-        uses: ./.github/actions/setup-nx-affected
+      - name: Check out source code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ env.is-merge == 'true' && 1 || 0 }}
+          ref: ${{ env.is-pull-request == 'true' && github.pull_request.head.ref || '' }}
+      - name: 'PR: Derive appropriate SHAs for base and head for `nx affected` commands'
+        if: github.event_name == 'pull_request'
+        uses: nrwl/nx-set-shas@v2
       - name: Set up dependencies
         uses: ./.github/actions/setup-dependencies
 
@@ -46,8 +52,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 'Check out source code and set up "nx affected" commands'
-        uses: ./.github/actions/setup-nx-affected
+      - name: Check out source code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ env.is-merge == 'true' && 1 || 0 }}
+          ref: ${{ env.is-pull-request == 'true' && github.pull_request.head.ref || '' }}
+      - name: 'PR: Derive appropriate SHAs for base and head for `nx affected` commands'
+        if: github.event_name == 'pull_request'
+        uses: nrwl/nx-set-shas@v2
       - name: Set up dependencies
         uses: ./.github/actions/setup-dependencies
 
@@ -63,8 +75,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 'Check out source code and set up "nx affected" commands'
-        uses: ./.github/actions/setup-nx-affected
+      - name: Check out source code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ env.is-merge == 'true' && 1 || 0 }}
+          ref: ${{ env.is-pull-request == 'true' && github.pull_request.head.ref || '' }}
+      - name: 'PR: Derive appropriate SHAs for base and head for `nx affected` commands'
+        if: github.event_name == 'pull_request'
+        uses: nrwl/nx-set-shas@v2
       - name: Set up dependencies
         uses: ./.github/actions/setup-dependencies
 
@@ -80,8 +98,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 'Check out source code and set up "nx affected" commands'
-        uses: ./.github/actions/setup-nx-affected
+      - name: Check out source code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ env.is-merge == 'true' && 1 || 0 }}
+          ref: ${{ env.is-pull-request == 'true' && github.pull_request.head.ref || '' }}
+      - name: 'PR: Derive appropriate SHAs for base and head for `nx affected` commands'
+        if: github.event_name == 'pull_request'
+        uses: nrwl/nx-set-shas@v2
       - name: Set up dependencies
         uses: ./.github/actions/setup-dependencies
 
