@@ -19,7 +19,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup-dependencies
+      - name: Set up dependencies
+        uses: ./.github/actions/setup-dependencies
 
       - name: Build Angular app
         run: yarn build
@@ -30,7 +31,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup-dependencies
+      - name: Set up dependencies
+        uses: ./.github/actions/setup-dependencies
 
       - name: Lint workspace and projects
         run: yarn lint
@@ -40,7 +42,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup-dependencies
+      - name: Set up dependencies
+        uses: ./.github/actions/setup-dependencies
 
       - name: Test projects
         run: yarn test
@@ -50,7 +53,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup-dependencies
+      - name: Set up dependencies
+        uses: ./.github/actions/setup-dependencies
 
       - name: End-to-end test application
         run: yarn e2e
