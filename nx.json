@@ -1,7 +1,39 @@
 {
-  "npmScope": "energy-insights",
   "affected": {
     "defaultBase": "main"
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "packageManager": "yarn"
+  },
+  "defaultProject": "energy-insights-app",
+  "generators": {
+    "@nrwl/angular:application": {
+      "e2eTestRunner": "cypress",
+      "inlineStyle": true,
+      "inlineTemplate": true,
+      "linter": "eslint",
+      "prefix": "nrg",
+      "skipTests": true,
+      "strict": true,
+      "style": "scss",
+      "tags": "type:app",
+      "unitTestRunner": "jest",
+      "viewEncapsulation": "None"
+    },
+    "@nrwl/angular:library": {
+      "linter": "eslint",
+      "prefix": "nrg",
+      "strict": true,
+      "unitTestRunner": "jest"
+    },
+    "@schematics/angular:component": {
+      "changeDetection": "OnPush",
+      "displayBlock": true
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
   },
   "implicitDependencies": {
     "package.json": {
@@ -10,35 +42,24 @@
     },
     ".eslintrc.json": "*"
   },
+  "npmScope": "energy-insights",
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
         "accessToken": "ZWY1MmU0MDUtMWRhOS00M2E4LTk1YTMtZmYzNzk3MTQ1NWQ3fHJlYWQtd3JpdGU=",
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
         "canTrackAnalytics": true,
         "showUsageWarnings": true
       }
-    }
-  },
-  "projects": {
-    "co2-data-access": {
-      "tags": ["scope:co2", "type:data-access"]
-    },
-    "energy-insights-app": {
-      "tags": ["type:app"]
-    },
-    "root-assets": {
-      "tags": ["scope:root", "type:assets"]
-    },
-    "root-styles": {
-      "tags": ["scope:root", "type:styles"]
-    },
-    "root-environments": {
-      "tags": ["scope:root", "type:environments"]
-    },
-    "co2-util-date-times": {
-      "tags": ["scope:co2", "type:util"]
     }
   }
 }

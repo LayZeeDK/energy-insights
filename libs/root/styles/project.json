@@ -1,0 +1,8 @@
+{
+  "projectType": "library",
+  "root": "libs/root/styles",
+  "sourceRoot": "libs/root/styles/src",
+  "prefix": "nrg",
+  "targets": {},
+  "tags": ["scope:root", "type:styles"]
+}

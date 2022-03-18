@@ -1,0 +1,102 @@
+{
+  "projectType": "application",
+  "root": "apps/energy-insights-app",
+  "sourceRoot": "apps/energy-insights-app/src",
+  "prefix": "energy-insights",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/energy-insights-app",
+        "index": "apps/energy-insights-app/src/index.html",
+        "main": "apps/energy-insights-app/src/main.ts",
+        "polyfills": "apps/energy-insights-app/src/polyfills.ts",
+        "tsConfig": "apps/energy-insights-app/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "favicon.ico",
+            "input": "libs/root/assets/src",
+            "output": "./"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/root/assets/src/assets",
+            "output": "assets"
+          }
+        ],
+        "styles": ["libs/root/styles/src/index.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "libs/root/environments/src/lib/environment.ts",
+              "with": "libs/root/environments/src/lib/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "energy-insights-app:build:production"
+        },
+        "development": {
+          "browserTarget": "energy-insights-app:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "energy-insights-app:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/energy-insights-app/src/**/*.ts",
+          "apps/energy-insights-app/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/energy-insights-app"],
+      "options": {
+        "jestConfig": "apps/energy-insights-app/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

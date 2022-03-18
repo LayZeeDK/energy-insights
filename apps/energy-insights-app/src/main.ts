@@ -1,15 +1,16 @@
-import { enableProdMode, ViewEncapsulation } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { enableProdMode } from '@angular/core';
+import { platformBrowser } from '@angular/platform-browser';
 import { environment } from '@energy-insights/root/environments';
 
-import { AppModule } from './app/app.module';
+import { EnergyInsightsAppModule } from './app/energy-insights-app.module';
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic()
-  .bootstrapModule(AppModule, {
-    defaultEncapsulation: ViewEncapsulation.None,
+platformBrowser()
+  .bootstrapModule(EnergyInsightsAppModule, {
+    ngZoneEventCoalescing: true,
+    ngZoneRunCoalescing: true,
   })
-  .catch(err => console.error(err));
+  .catch((error: unknown) => console.error(error));

@@ -1,0 +1,28 @@
+{
+  "root": "apps/energy-insights-app-e2e",
+  "sourceRoot": "apps/energy-insights-app-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/energy-insights-app-e2e/cypress.json",
+        "devServerTarget": "energy-insights-app:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "energy-insights-app:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/energy-insights-app-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["energy-insights-app"]
+}

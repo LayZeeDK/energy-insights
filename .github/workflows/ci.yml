@@ -1,70 +1,120 @@
-name: Energy Insights CI
+name: CI
 
 env:
-  node-version: 14.x
-  NODE_OPTIONS: --max_old_space_size=6144
-  NX_BRANCH: ${{ github.event.number }}
-  NX_RUN_GROUP: ${{ github.run_id }}
+  # Branching
+  is-merge: ${{ github.event_name == 'push' }}
+  is-pull-request: ${{ github.event_name == 'pull_request' }}
+
+  # Check out
+  checkout-fetch-depth: ${{ github.event_name == 'push' && 1 || 0 }}
+  checkout-ref: ${{ github.event_name == 'pull_request' && github.pull_request.head.ref || '' }}
+
+  # Node.js
+  NODE_OPTIONS: --max-old-space-size=6144
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-  workflow_dispatch:
-    branches:
+  pull_request: {}
+
+concurrency:
+  # Group concurrency on workflow, then:
+  # - Is merge run? Group `push` events
+  # - Is pull request? Group `pull_request` events
+  group: ${{ github.workflow }}-${{ github.event_name == 'push' && github.base_ref || github.head_ref }}
+  # Run merge runs in sequence. Cancel in progress pull request runs.
+  cancel-in-progress: ${{ github.event_name != 'push' }}
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v2
+      - name: Check out source code
+        uses: actions/checkout@v3
         with:
-          node-version: ${{ env.node-version }}
-      - name: Install PNPM
-        run: npm install --global pnpm
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile --verify-store-integrity false
+          fetch-depth: ${{ env.checkout-fetch-depth }}
+          ref: ${{ env.checkout-ref }}
+      - name: 'PR: Derive appropriate SHAs for base and head for `nx affected` commands'
+        if: github.event_name == 'pull_request'
+        uses: nrwl/nx-set-shas@v2
+      - name: Set up dependencies
+        uses: ./.github/actions/setup-dependencies
 
-      - name: Build Angular app
-        run: pnpm build
+      - name: 'PR: Build application if affected by changes in feature branch'
+        if: env.is-pull-request == 'true'
+        run: yarn build
+      - name: 'Merge: Build application'
+        if: env.is-merge == 'true'
+        run: yarn build
+
   lint:
-    if: github.event_name == 'pull_request'
+    name: Lint
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v2
+      - name: Check out source code
+        uses: actions/checkout@v3
         with:
-          node-version: ${{ env.node-version }}
-      - name: Install PNPM
-        run: npm install --global pnpm
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile --verify-store-integrity false
+          fetch-depth: ${{ env.checkout-fetch-depth }}
+          ref: ${{ env.checkout-ref }}
+      - name: 'PR: Derive appropriate SHAs for base and head for `nx affected` commands'
+        if: github.event_name == 'pull_request'
+        uses: nrwl/nx-set-shas@v2
+      - name: Set up dependencies
+        uses: ./.github/actions/setup-dependencies
 
-      - name: Lint workspace and projects
-        run: pnpm lint
+      - name: 'PR: Lint workspace and affected projects'
+        if: env.is-pull-request == 'true'
+        run: yarn affected:lint
+      - name: 'Merge: Lint workspace and all projects'
+        if: env.is-merge == 'true'
+        run: yarn lint
+
   test:
+    name: Test
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v2
+      - name: Check out source code
+        uses: actions/checkout@v3
         with:
-          node-version: ${{ env.node-version }}
-      - name: Install PNPM
-        run: npm install --global pnpm
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile --verify-store-integrity false
+          fetch-depth: ${{ env.checkout-fetch-depth }}
+          ref: ${{ env.checkout-ref }}
+      - name: 'PR: Derive appropriate SHAs for base and head for `nx affected` commands'
+        if: github.event_name == 'pull_request'
+        uses: nrwl/nx-set-shas@v2
+      - name: Set up dependencies
+        uses: ./.github/actions/setup-dependencies
 
-      - name: Test projects
-        run: pnpm test
+      - name: 'PR: Test affected projects'
+        if: env.is-pull-request == 'true'
+        run: yarn test
+      - name: 'Merge: Test all projects'
+        if: env.is-merge == 'true'
+        run: yarn test
+
+  e2e:
+    name: End-to-end test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ env.checkout-fetch-depth }}
+          ref: ${{ env.checkout-ref }}
+      - name: 'PR: Derive appropriate SHAs for base and head for `nx affected` commands'
+        if: github.event_name == 'pull_request'
+        uses: nrwl/nx-set-shas@v2
+      - name: Set up dependencies
+        uses: ./.github/actions/setup-dependencies
+
+      - name: 'PR: End-to-end test application if affected by changes in feature branch'
+        if: env.is-pull-request == 'true'
+        run: yarn affected:e2e
+      - name: 'Merge: End-to-end test application'
+        if: env.is-merge == 'true'
+        run: yarn e2e
