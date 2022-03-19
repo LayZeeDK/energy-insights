@@ -1,5 +1,8 @@
 import { HttpClientModule } from '@angular/common/http';
-import { SpectacularAppComponent, SpectacularFeatureTestingModule } from '@ngworker/spectacular';
+import {
+  SpectacularAppComponent,
+  SpectacularFeatureTestingModule,
+} from '@ngworker/spectacular';
 import { render, RenderResult, screen } from '@testing-library/angular';
 
 import { Co2FeatureForecastModule } from './co2-feature-forecast.module';

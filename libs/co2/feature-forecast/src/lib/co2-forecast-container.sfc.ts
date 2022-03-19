@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, NgModule, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  NgModule,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Co2ForecastStore } from '@energy-insights/co2/data-access';
 import { Co2Forecast } from '@energy-insights/co2/domain';
 import { Observable } from 'rxjs';
