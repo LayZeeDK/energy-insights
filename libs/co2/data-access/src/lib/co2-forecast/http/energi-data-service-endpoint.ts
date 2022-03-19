@@ -1,2 +1,2 @@
 export const energiDataServiceEndpoint =
-  'https://www.energidataservice.dk/proxy/api/datastore_search_sql';
+  'https://api.energidataservice.dk/datastore_search_sql';
