@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { DateTime, Settings } from 'luxon';
+import { firstValueFrom } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 import { danishZone } from '../zones/danish-zone';
@@ -20,7 +21,7 @@ describe(DanishDateStore.name, () => {
       const store = TestBed.inject(DanishDateStore);
 
       // Act
-      const actualToday = await store.today$.pipe(first()).toPromise();
+      const actualToday = await firstValueFrom(store.today$.pipe(first()));
 
       // Assert
       expect(actualToday).toEqual(expectedToday);

@@ -39,7 +39,7 @@ export class Co2EmissionPrognosisHttp {
                   minutes5Utc: DateTime.fromISO(record.minutes5Utc),
                 }))
               )
-            : throwError(new Error('CKAN Error'))
+            : throwError(() => new Error('CKAN Error'))
         )
       );
   }

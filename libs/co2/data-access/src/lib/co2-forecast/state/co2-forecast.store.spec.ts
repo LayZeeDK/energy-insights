@@ -6,7 +6,7 @@ import {
   tick,
 } from '@angular/core/testing';
 import { DateTime, Interval } from 'luxon';
-import { Observable, of, range, throwError } from 'rxjs';
+import { firstValueFrom, Observable, of, range, throwError } from 'rxjs';
 import { first, skip, take } from 'rxjs/operators';
 
 import { Co2EmissionPrognosisHttp } from '../http/co2-emission-prognosis-http.service';
@@ -47,7 +47,7 @@ describe(Co2ForecastStore.name, () => {
     it('initially emits an empty forecast', async () => {
       const { store } = setup();
 
-      const forecast = await store.forecast$.pipe(first()).toPromise();
+      const forecast = await firstValueFrom(store.forecast$.pipe(first()));
 
       expect(forecast).toEqual([]);
     });
@@ -68,9 +68,9 @@ describe(Co2ForecastStore.name, () => {
       });
 
       // Act
-      const actualForecast = await store.forecast$
-        .pipe(skip(1), take(1))
-        .toPromise();
+      const actualForecast = await firstValueFrom(
+        store.forecast$.pipe(skip(1), take(1))
+      );
 
       // Assert
       expect(httpGetSpy).toHaveBeenCalledTimes(1);
@@ -81,15 +81,15 @@ describe(Co2ForecastStore.name, () => {
       // Arrange
       const httpGetSpy = jest
         .fn()
-        .mockReturnValue(throwError(new Error('CKAN Error')));
+        .mockReturnValue(throwError(() => new Error('CKAN Error')));
       const { store } = setup({
         httpGetSpy,
       });
 
       // Act
-      const actualForecast = await store.forecast$
-        .pipe(skip(1), take(1))
-        .toPromise();
+      const actualForecast = await firstValueFrom(
+        store.forecast$.pipe(skip(1), take(1))
+      );
 
       // Assert
       expect(httpGetSpy).toHaveBeenCalledTimes(1);
