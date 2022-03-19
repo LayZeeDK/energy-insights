@@ -16,7 +16,7 @@ class JsdomLaxSslEnvironment extends JSDOMEnvironment {
           resources: new ResourceLoader({
             // This is all we want to change to allow self-signed certificates
             strictSSL: false,
-            userAgent: config.testEnvironmentOptions?.userAgent as
+            userAgent: config.testEnvironmentOptions?.['userAgent'] as
               | string
               | undefined,
           }),

@@ -1,5 +1,5 @@
 import { Component, NgModule } from '@angular/core';
-import { RouterOutlet, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { Co2FeatureForecastModule } from '@energy-insights/co2/feature-forecast';
 
 @Component({
