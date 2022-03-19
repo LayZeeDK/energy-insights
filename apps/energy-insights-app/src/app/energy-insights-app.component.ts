@@ -1,6 +1,5 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Co2FeatureForecastModule } from '@energy-insights/co2/feature-forecast';
 
 @Component({
   // The root element is intentionally named after the application
@@ -74,6 +73,6 @@ export class EnergyInsightsAppComponent {
 
 @NgModule({
   declarations: [EnergyInsightsAppComponent],
-  imports: [Co2FeatureForecastModule, RouterModule],
+  imports: [RouterModule],
 })
 export class EnergyInsightsAppScam {}
