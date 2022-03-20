@@ -1,5 +1,5 @@
-import { HttpClientModule } from '@angular/common/http';
 import { co2DomainRoutePath } from '@energy-insights/co2/routing';
+import { provideCo2EmissionPrognosisMock } from '@energy-insights/co2/test-util';
 import {
   SpectacularAppComponent,
   SpectacularFeatureTestingModule,
@@ -14,12 +14,12 @@ describe('CO2 forecast integration test', () => {
     const { navigate } = await render(SpectacularAppComponent, {
       excludeComponentDeclaration: true,
       imports: [
-        HttpClientModule,
         SpectacularFeatureTestingModule.withFeature({
           featureModule: Co2FeatureForecastModule,
           featurePath: co2DomainRoutePath,
         }),
       ],
+      providers: [provideCo2EmissionPrognosisMock()],
     });
 
     await navigate(co2DomainRoutePath);
@@ -49,10 +49,8 @@ describe('CO2 forecast integration test', () => {
     // Act
 
     // Assert
-    expect(
-      await screen.findByTestId('first-date-time-cell', undefined, {
-        timeout: 10_000,
-      })
-    ).toHaveTextContent(expectedTimeAndOffset);
-  }, 10_000);
+    expect(await screen.findByTestId('first-date-time-cell')).toHaveTextContent(
+      expectedTimeAndOffset
+    );
+  });
 });
