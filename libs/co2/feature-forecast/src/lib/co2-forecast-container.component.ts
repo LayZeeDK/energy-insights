@@ -24,9 +24,9 @@ const selector = 'nrg-co2-forecast';
       }
     `,
   ],
-  template: `<nrg-co2-forecast-ui
-    [forecast]="forecast$ | push"
-  ></nrg-co2-forecast-ui>`,
+  template: `
+    <nrg-co2-forecast-ui [forecast]="forecast$ | push"></nrg-co2-forecast-ui>
+  `,
   viewProviders: [Co2ForecastStore],
 })
 export class Co2ForecastContainerComponent {

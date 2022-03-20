@@ -53,20 +53,8 @@ const selector = 'nrg-co2-forecast-ui';
   `,
 })
 export class Co2ForecastComponent {
-  #forecast: Co2Forecast = [];
-
-  // Input setter type hint
-  // eslint-disable-next-line @typescript-eslint/member-ordering
-  static ngAcceptInputType_forecast: Co2Forecast | null;
   @Input()
-  set forecast(forecast: Co2Forecast) {
-    forecast ??= [];
-
-    this.#forecast = forecast;
-  }
-  get forecast(): Co2Forecast {
-    return this.#forecast;
-  }
+  forecast: Co2Forecast = [];
 
   trackByDataPoint(_index: number, dataPoint: Co2ForecastDataPoint): string {
     return identifyCo2ForecastDataPoint(dataPoint);
