@@ -39,7 +39,8 @@ describe('CO2 forecast integration test', () => {
 
   it('displays the first 5 minute interval of the current Danish day', async () => {
     // Arrange
-    const expectedTimeAndOffset = /12:00:00 AM GMT\+[12]$/;
+    const expectedTimeAndOffset =
+      /(11:00:00 PM GMT\+[01]$)|(12:00:00 AM GMT\+[12]$)/;
 
     // Act
 
