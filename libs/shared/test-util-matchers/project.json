@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/shared/test-util-matchers",
+  "sourceRoot": "libs/shared/test-util-matchers/src",
+  "prefix": "nrg",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shared/test-util-matchers"],
+      "options": {
+        "jestConfig": "libs/shared/test-util-matchers/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/test-util-matchers/src/**/*.ts",
+          "libs/shared/test-util-matchers/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:test-util"]
+}
