@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { co2RoutePath } from '@energy-insights/co2/routing';
+import { co2DomainRoutePath } from '@energy-insights/co2/routing';
 import {
   SpectacularAppComponent,
   SpectacularFeatureTestingModule,
@@ -17,13 +17,13 @@ describe('CO2 forecast integration test', () => {
         HttpClientModule,
         SpectacularFeatureTestingModule.withFeature({
           featureModule: Co2FeatureForecastModule,
-          featurePath: co2RoutePath,
+          featurePath: co2DomainRoutePath,
         }),
       ],
     });
 
     // Act
-    await result.navigate(co2RoutePath);
+    await result.navigate(co2DomainRoutePath);
   });
 
   let result: RenderResult<SpectacularAppComponent>;
