@@ -45,6 +45,6 @@ describe('CO2 forecast integration test', () => {
 
     // Assert
     const [firstDateTimeCell] = await screen.findAllByTestId('date-time-cell');
-    expect(firstDateTimeCell.textContent).toContain(expectedTimeAndOffset);
+    expect(firstDateTimeCell).toHaveTextContent(expectedTimeAndOffset);
   });
 });
