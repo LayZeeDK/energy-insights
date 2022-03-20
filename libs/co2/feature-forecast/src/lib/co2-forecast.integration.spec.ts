@@ -4,14 +4,14 @@ import {
   SpectacularAppComponent,
   SpectacularFeatureTestingModule,
 } from '@ngworker/spectacular';
-import { render, RenderResult, screen } from '@testing-library/angular';
+import { render, screen } from '@testing-library/angular';
 
 import { Co2FeatureForecastModule } from './co2-feature-forecast.module';
 
 describe('CO2 forecast integration test', () => {
   beforeEach(async () => {
     // Arrange
-    result = await render(SpectacularAppComponent, {
+    const { navigate } = await render(SpectacularAppComponent, {
       excludeComponentDeclaration: true,
       imports: [
         HttpClientModule,
@@ -23,10 +23,8 @@ describe('CO2 forecast integration test', () => {
     });
 
     // Act
-    await result.navigate(co2DomainRoutePath);
+    await navigate(co2DomainRoutePath);
   });
-
-  let result: RenderResult<SpectacularAppComponent>;
 
   it('displays a heading', async () => {
     // Assert
@@ -39,6 +37,7 @@ describe('CO2 forecast integration test', () => {
 
   it('displays the first 5 minute interval of the current Danish day', async () => {
     // Arrange
+    // Support local and GitHub runner time zones
     const expectedTimeAndOffset =
       /(11:00:00 PM GMT\+[01]$)|(12:00:00 AM GMT\+[12]$)/;
 
