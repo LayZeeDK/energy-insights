@@ -7,7 +7,8 @@ env:
 
   # Check out
   checkout-fetch-depth: ${{ github.event_name == 'push' && 1 || 0 }}
-  checkout-ref: ${{ github.event_name == 'pull_request' && github.pull_request.head.ref || '' }}
+  checkout-ref:
+    ${{ github.event_name == 'pull_request' && github.head_ref || '' }}
 
   # Node.js
   NODE_OPTIONS: --max-old-space-size=6144
@@ -22,7 +23,9 @@ concurrency:
   # Group concurrency on workflow, then:
   # - Is merge run? Group `push` events
   # - Is pull request? Group `pull_request` events
-  group: ${{ github.workflow }}-${{ github.event_name == 'push' && github.base_ref || github.head_ref }}
+  group:
+    ${{ github.workflow }}-${{ github.event_name == 'push' && github.base_ref ||
+    github.head_ref }}
   # Run merge runs in sequence. Cancel in progress pull request runs.
   cancel-in-progress: ${{ github.event_name != 'push' }}
 
@@ -37,7 +40,9 @@ jobs:
         with:
           fetch-depth: ${{ env.checkout-fetch-depth }}
           ref: ${{ env.checkout-ref }}
-      - name: 'PR: Derive appropriate SHAs for base and head for `nx affected` commands'
+      - name:
+          'PR: Derive appropriate SHAs for base and head for `nx affected`
+          commands'
         if: github.event_name == 'pull_request'
         uses: nrwl/nx-set-shas@v2
       - name: Set up dependencies
@@ -60,7 +65,9 @@ jobs:
         with:
           fetch-depth: ${{ env.checkout-fetch-depth }}
           ref: ${{ env.checkout-ref }}
-      - name: 'PR: Derive appropriate SHAs for base and head for `nx affected` commands'
+      - name:
+          'PR: Derive appropriate SHAs for base and head for `nx affected`
+          commands'
         if: github.event_name == 'pull_request'
         uses: nrwl/nx-set-shas@v2
       - name: Set up dependencies
@@ -83,7 +90,9 @@ jobs:
         with:
           fetch-depth: ${{ env.checkout-fetch-depth }}
           ref: ${{ env.checkout-ref }}
-      - name: 'PR: Derive appropriate SHAs for base and head for `nx affected` commands'
+      - name:
+          'PR: Derive appropriate SHAs for base and head for `nx affected`
+          commands'
         if: github.event_name == 'pull_request'
         uses: nrwl/nx-set-shas@v2
       - name: Set up dependencies
@@ -106,13 +115,17 @@ jobs:
         with:
           fetch-depth: ${{ env.checkout-fetch-depth }}
           ref: ${{ env.checkout-ref }}
-      - name: 'PR: Derive appropriate SHAs for base and head for `nx affected` commands'
+      - name:
+          'PR: Derive appropriate SHAs for base and head for `nx affected`
+          commands'
         if: github.event_name == 'pull_request'
         uses: nrwl/nx-set-shas@v2
       - name: Set up dependencies
         uses: ./.github/actions/setup-dependencies
 
-      - name: 'PR: End-to-end test application if affected by changes in feature branch'
+      - name:
+          'PR: End-to-end test application if affected by changes in feature
+          branch'
         if: env.is-pull-request == 'true'
         run: yarn affected:e2e
       - name: 'Merge: End-to-end test application'
