@@ -40,7 +40,7 @@ const selector = 'nrg-shell-header';
 })
 export class ShellHeaderComponent {
   @HostBinding('className')
-  className = 'o-center';
+  className = 'o-centered-context';
 
   title = 'Energy Insights';
 }
