@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/root/shell",
+  "sourceRoot": "libs/root/shell/src",
+  "prefix": "nrg",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/root/shell"],
+      "options": {
+        "jestConfig": "libs/root/shell/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/root/shell/src/**/*.ts",
+          "libs/root/shell/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:root", "type:shell"]
+}

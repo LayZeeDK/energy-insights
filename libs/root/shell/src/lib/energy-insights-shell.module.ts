@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'co2',
+    redirectTo: co2RoutePath,
   },
   {
     path: co2RoutePath,
@@ -21,4 +21,4 @@ const routes: Routes = [
 @NgModule({
   imports: [HttpClientModule, RouterModule.forRoot(routes)],
 })
-export class EnergyInsightsCoreModule {}
+export class EnergyInsightsShellModule {}

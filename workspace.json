@@ -11,6 +11,7 @@
     "energy-insights-app-e2e": "apps/energy-insights-app-e2e",
     "root-assets": "libs/root/assets",
     "root-environments": "libs/root/environments",
+    "root-shell": "libs/root/shell",
     "root-styles": "libs/root/styles",
     "shared-test-util-matchers": "libs/shared/test-util-matchers"
   }
