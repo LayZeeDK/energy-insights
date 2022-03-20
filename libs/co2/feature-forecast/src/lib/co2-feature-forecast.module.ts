@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {
   Co2ForecastContainerComponent,
   Co2ForecastContainerScam,
-} from './co2-forecast-container.sfc';
+} from './co2-forecast-container.component';
 
 const routes: Routes = [
   {

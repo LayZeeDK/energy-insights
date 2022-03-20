@@ -9,7 +9,7 @@ import { Co2Forecast } from '@energy-insights/co2/domain';
 import { PushModule } from '@rx-angular/template';
 import { Observable } from 'rxjs';
 
-import { Co2ForecastScam } from './co2-forecast.sfc';
+import { Co2ForecastScam } from './co2-forecast.component';
 
 const selector = 'nrg-co2-forecast';
 

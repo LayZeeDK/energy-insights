@@ -5,7 +5,7 @@ import { Co2Forecast } from '@energy-insights/co2/domain';
 import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
 
-import { Co2ForecastContainerComponent } from './co2-forecast-container.sfc';
+import { Co2ForecastContainerComponent } from './co2-forecast-container.component';
 
 describe(Co2ForecastContainerComponent.name, () => {
   beforeEach(() => {
