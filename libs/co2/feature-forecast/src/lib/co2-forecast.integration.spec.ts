@@ -1,4 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
+import { co2RoutePath } from '@energy-insights/co2/routing';
 import {
   SpectacularAppComponent,
   SpectacularFeatureTestingModule,
@@ -6,7 +7,6 @@ import {
 import { render, RenderResult, screen } from '@testing-library/angular';
 
 import { Co2FeatureForecastModule } from './co2-feature-forecast.module';
-import { co2RoutePath } from './co2-route-path';
 
 describe('CO2 forecast integration test', () => {
   beforeEach(async () => {

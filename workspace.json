@@ -4,6 +4,7 @@
     "co2-data-access": "libs/co2/data-access",
     "co2-domain": "libs/co2/domain",
     "co2-feature-forecast": "libs/co2/feature-forecast",
+    "co2-routing": "libs/co2/routing",
     "co2-util-date-times": "libs/co2/util-date-times",
     "energy-insights-app": "apps/energy-insights-app",
     "energy-insights-app-e2e": "apps/energy-insights-app-e2e",
