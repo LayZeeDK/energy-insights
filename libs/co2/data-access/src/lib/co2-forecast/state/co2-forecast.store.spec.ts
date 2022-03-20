@@ -5,12 +5,14 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
+import {
+  Co2EmissionPrognosisHttp,
+  Co2EmissionPrognosisResponse,
+} from '@energy-insights/co2/data-access-api';
 import { DateTime, Interval } from 'luxon';
 import { firstValueFrom, Observable, of, range, throwError } from 'rxjs';
 import { first, skip, take } from 'rxjs/operators';
 
-import { Co2EmissionPrognosisHttp } from '../http/co2-emission-prognosis-http.service';
-import { Co2EmissionPrognosisResponse } from './../http/co2-emission-prognosis-response-item';
 import { Co2ForecastStore } from './co2-forecast.store';
 
 describe(Co2ForecastStore.name, () => {

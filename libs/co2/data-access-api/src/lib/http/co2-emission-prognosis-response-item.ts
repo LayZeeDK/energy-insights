@@ -6,4 +6,5 @@ export interface Co2EmissionPrognosisResponseItem {
   readonly priceArea: 'DK1' | 'DK2';
 }
 
-export type Co2EmissionPrognosisResponse = readonly Co2EmissionPrognosisResponseItem[];
+export type Co2EmissionPrognosisResponse =
+  readonly Co2EmissionPrognosisResponseItem[];

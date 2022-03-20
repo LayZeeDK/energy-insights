@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/co2/data-access-api",
+  "sourceRoot": "libs/co2/data-access-api/src",
+  "prefix": "nrg",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/co2/data-access-api"],
+      "options": {
+        "jestConfig": "libs/co2/data-access-api/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/co2/data-access-api/src/**/*.ts",
+          "libs/co2/data-access-api/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:co2", "type:data-access"]
+}

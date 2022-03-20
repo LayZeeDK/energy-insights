@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Co2EmissionPrognosisHttp } from '@energy-insights/co2/data-access-api';
 import { Co2Forecast } from '@energy-insights/co2/domain';
 import { DanishDateStore } from '@energy-insights/co2/util-date-times';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Duration, Interval } from 'luxon';
 import { Observable, pipe, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-
-import { Co2EmissionPrognosisHttp } from '../http/co2-emission-prognosis-http.service';
 
 interface Co2ForecastState {
   readonly forecast: Co2Forecast;

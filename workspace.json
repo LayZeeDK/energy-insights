@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "co2-data-access": "libs/co2/data-access",
+    "co2-data-access-api": "libs/co2/data-access-api",
     "co2-domain": "libs/co2/domain",
     "co2-feature-forecast": "libs/co2/feature-forecast",
     "co2-routing": "libs/co2/routing",
