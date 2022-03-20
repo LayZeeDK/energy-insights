@@ -13,7 +13,7 @@
     "yarn": "1.22.17"
   },
   "scripts": {
-    "postinstall": "node ./decorate-angular-cli.js && ngcc --first-only --properties es2015 module fesm2015 esm2015 browser main --create-ivy-entry-points --tsconfig apps/energy-insights-app/tsconfig.app.json --use-program-dependencies",
+    "postinstall": "npm run decorate-angular-cli && npm run ngcc",
     "affected:build": "nx affected:build --configuration=production",
     "affected:ci": "yarn affected:build && yarn affected:lint && yarn affected:test && yarn affected:e2e",
     "affected:e2e": "nx affected:e2e",
@@ -21,10 +21,13 @@
     "affected:test": "nx affected:test",
     "build": "nx build --configuration=production",
     "ci": "yarn build && yarn lint && yarn test && yarn e2e",
+    "decorate-angular-cli": "node ./decorate-angular-cli.js",
     "e2e": "nx e2e energy-insights-app-e2e",
     "lint": "nx run-many --target=lint --all --max-warnings=0",
     "lint-fix": "nx run-many --target=lint --all --fix",
     "ng": "nx",
+    "ngcc": "ngcc --properties es2015 browser module main",
+    "ngcc:app": "npm run ngcc -- --tsconfig apps/energy-insights-app/tsconfig.app.json --use-program-dependencies",
     "nx": "nx",
     "start": "nx serve",
     "test": "nx run-many --target=test --all"
