@@ -9,7 +9,7 @@ import { render, screen } from '@testing-library/angular';
 import { Co2FeatureForecastModule } from './co2-feature-forecast.module';
 
 describe('CO2 forecast integration test', () => {
-  beforeEach(async () => {
+  async function setup() {
     // Arrange
     const { navigate } = await render(SpectacularAppComponent, {
       excludeComponentDeclaration: true,
@@ -22,11 +22,15 @@ describe('CO2 forecast integration test', () => {
       ],
     });
 
-    // Act
     await navigate(co2DomainRoutePath);
-  });
+  }
 
-  it('displays a heading', async () => {
+  it('displays a title', async () => {
+    // Arrange
+    await setup();
+
+    // Act
+
     // Assert
     expect(
       await screen.findByRole('heading', {
@@ -37,6 +41,7 @@ describe('CO2 forecast integration test', () => {
 
   it('displays the first 5 minute interval of the current Danish day', async () => {
     // Arrange
+    await setup();
     // Support local and GitHub runner time zones
     const expectedTimeAndOffset =
       /(11:00:00 PM GMT\+[01]$)|(12:00:00 AM GMT\+[12]$)/;
