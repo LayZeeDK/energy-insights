@@ -15,9 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@energy-insights/co2/data-access": ["libs/co2/data-access/src/index.ts"],
       "@energy-insights/co2/data-access-api": [
         "libs/co2/data-access-api/src/index.ts"
+      ],
+      "@energy-insights/co2/data-access-state": [
+        "libs/co2/data-access-state/src/index.ts"
       ],
       "@energy-insights/co2/domain": ["libs/co2/domain/src/index.ts"],
       "@energy-insights/co2/feature-forecast": [

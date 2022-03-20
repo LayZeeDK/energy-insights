@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'co2-data-access',
+  displayName: 'co2-data-access-state',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +8,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/co2/data-access',
+  coverageDirectory: '../../../coverage/libs/co2/data-access-state',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { Co2ForecastStore } from '@energy-insights/co2/data-access';
+import { Co2ForecastStore } from '@energy-insights/co2/data-access-state';
 import { Co2Forecast } from '@energy-insights/co2/domain';
 import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';

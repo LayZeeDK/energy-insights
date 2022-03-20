@@ -1,3 +1,3 @@
-# CO2 data access
+# CO2 state data access
 
 Local state management.

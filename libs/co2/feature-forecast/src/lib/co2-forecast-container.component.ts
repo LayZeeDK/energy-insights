@@ -4,7 +4,7 @@ import {
   NgModule,
   ViewEncapsulation,
 } from '@angular/core';
-import { Co2ForecastStore } from '@energy-insights/co2/data-access';
+import { Co2ForecastStore } from '@energy-insights/co2/data-access-state';
 import { Co2Forecast } from '@energy-insights/co2/domain';
 import { PushModule } from '@rx-angular/template';
 import { Observable } from 'rxjs';
