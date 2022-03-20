@@ -21,6 +21,7 @@
         "libs/co2/feature-forecast/src/index.ts"
       ],
       "@energy-insights/co2/routing": ["libs/co2/routing/src/index.ts"],
+      "@energy-insights/co2/shell": ["libs/co2/shell/src/index.ts"],
       "@energy-insights/co2/util-date-times": [
         "libs/co2/util-date-times/src/index.ts"
       ],

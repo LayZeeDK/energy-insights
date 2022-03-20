@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/co2/shell",
+  "sourceRoot": "libs/co2/shell/src",
+  "prefix": "nrg",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/co2/shell"],
+      "options": {
+        "jestConfig": "libs/co2/shell/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/co2/shell/src/**/*.ts",
+          "libs/co2/shell/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:co2", "type:shell"]
+}
