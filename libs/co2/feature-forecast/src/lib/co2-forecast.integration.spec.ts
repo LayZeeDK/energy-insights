@@ -4,7 +4,7 @@ import {
   SpectacularAppComponent,
   SpectacularFeatureTestingModule,
 } from '@ngworker/spectacular';
-import { render, screen } from '@testing-library/angular';
+import { render, screen, within } from '@testing-library/angular';
 
 import { Co2FeatureForecastModule } from './co2-feature-forecast.module';
 
@@ -25,6 +25,11 @@ describe('CO2 forecast integration test', () => {
     await navigate(co2DomainRoutePath);
   }
 
+  const getFirstDataRow = () =>
+    screen.findByText('', {
+      selector: 'tbody tr:first-of-type',
+    });
+
   it('displays a title', async () => {
     // Arrange
     await setup();
@@ -42,15 +47,15 @@ describe('CO2 forecast integration test', () => {
   it('displays the first 5 minute interval of the current Danish day', async () => {
     // Arrange
     await setup();
-    // Support local and GitHub runner time zones
-    const expectedTimeAndOffset =
-      /(11:00:00 PM GMT\+[01]$)|(12:00:00 AM GMT\+[12]$)/;
+    const mockedRelativeCo2Emission = /^132$/;
 
     // Act
 
     // Assert
-    expect(await screen.findByTestId('first-date-time-cell')).toHaveTextContent(
-      expectedTimeAndOffset
-    );
+    expect(
+      await within(await getFirstDataRow()).findByRole('cell', {
+        name: mockedRelativeCo2Emission,
+      })
+    ).toBeInTheDocument();
   });
 });
