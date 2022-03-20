@@ -44,8 +44,10 @@ describe('CO2 forecast integration test', () => {
     // Act
 
     // Assert
-    expect(await screen.findByTestId('first-date-time-cell')).toHaveTextContent(
-      expectedTimeAndOffset
-    );
-  });
+    expect(
+      await screen.findByTestId('first-date-time-cell', undefined, {
+        timeout: 10_000,
+      })
+    ).toHaveTextContent(expectedTimeAndOffset);
+  }, 10_000);
 });
