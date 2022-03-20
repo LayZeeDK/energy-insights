@@ -11,7 +11,7 @@ import {
 } from '@energy-insights/co2/data-access-api';
 import { DateTime, Interval } from 'luxon';
 import { firstValueFrom, Observable, of, range, throwError } from 'rxjs';
-import { first, skip, take } from 'rxjs/operators';
+import { skip } from 'rxjs/operators';
 
 import { Co2ForecastStore } from './co2-forecast.store';
 
@@ -49,7 +49,7 @@ describe(Co2ForecastStore.name, () => {
     it('initially emits an empty forecast', async () => {
       const { store } = setup();
 
-      const forecast = await firstValueFrom(store.forecast$.pipe(first()));
+      const forecast = await firstValueFrom(store.forecast$);
 
       expect(forecast).toEqual([]);
     });
@@ -71,7 +71,7 @@ describe(Co2ForecastStore.name, () => {
 
       // Act
       const actualForecast = await firstValueFrom(
-        store.forecast$.pipe(skip(1), take(1))
+        store.forecast$.pipe(skip(1))
       );
 
       // Assert
@@ -90,7 +90,7 @@ describe(Co2ForecastStore.name, () => {
 
       // Act
       const actualForecast = await firstValueFrom(
-        store.forecast$.pipe(skip(1), take(1))
+        store.forecast$.pipe(skip(1))
       );
 
       // Assert
