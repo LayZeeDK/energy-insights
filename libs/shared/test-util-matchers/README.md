@@ -1,7 +1,3 @@
-# shared-test-util-matchers
+# Matcher test utilities
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test shared-test-util-matchers` to execute the unit tests.
+Jest matchers.
