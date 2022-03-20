@@ -39,13 +39,12 @@ describe('CO2 forecast integration test', () => {
 
   it('displays the first 5 minute interval of the current Danish day', async () => {
     // Arrange
-    const expectedTimeAndOffset = '12:00:00 AM GMT+2';
+    const expectedTimeAndOffset = '12:00:00 AM GMT+1';
 
     // Act
 
     // Assert
-    expect((await screen.findByTestId('date-time-cell')).textContent).toContain(
-      expectedTimeAndOffset
-    );
+    const [firstDateTimeCell] = await screen.findAllByTestId('date-time-cell');
+    expect(firstDateTimeCell.textContent).toContain(expectedTimeAndOffset);
   });
 });
