@@ -44,7 +44,13 @@ describe('CO2 forecast integration test', () => {
     // Act
 
     // Assert
-    const [firstDateTimeCell] = await screen.findAllByTestId('date-time-cell');
+    const [firstDateTimeCell] = await screen.findAllByTestId(
+      'date-time-cell',
+      {},
+      {
+        timeout: 4000,
+      }
+    );
     expect(firstDateTimeCell).toHaveTextContent(expectedTimeAndOffset);
   });
 });
