@@ -18,15 +18,15 @@ export class DanishDateStore extends ComponentStore<DanishDateState> {
   constructor() {
     super();
 
-    this.setState(createInitialState(this.today()));
+    this.setState(createInitialState(this.#today()));
   }
 
-  private now(): DateTime {
+  #now(): DateTime {
     return DateTime.now().setZone(danishZone);
   }
 
-  private today(): DateTime {
-    return this.now().startOf('day');
+  #today(): DateTime {
+    return this.#now().startOf('day');
   }
 }
 
