@@ -30,7 +30,7 @@ describe('CO2 forecast integration test', () => {
     // Assert
     expect(
       await screen.findByRole('heading', {
-        name: 'CO2 forecast',
+        name: /CO2 forecast/i,
       })
     ).toBeInTheDocument();
   });
