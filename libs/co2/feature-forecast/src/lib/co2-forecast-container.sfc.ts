@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,6 +6,7 @@ import {
 } from '@angular/core';
 import { Co2ForecastStore } from '@energy-insights/co2/data-access';
 import { Co2Forecast } from '@energy-insights/co2/domain';
+import { PushModule } from '@rx-angular/template';
 import { Observable } from 'rxjs';
 
 import { Co2ForecastScam } from './co2-forecast.sfc';
@@ -25,7 +25,7 @@ const selector = 'nrg-co2-forecast';
     `,
   ],
   template: `<nrg-co2-forecast-ui
-    [forecast]="forecast$ | async"
+    [forecast]="forecast$ | push"
   ></nrg-co2-forecast-ui>`,
   viewProviders: [Co2ForecastStore],
 })
@@ -39,6 +39,6 @@ export class Co2ForecastContainerComponent {
 
 @NgModule({
   declarations: [Co2ForecastContainerComponent],
-  imports: [CommonModule, Co2ForecastScam],
+  imports: [PushModule, Co2ForecastScam],
 })
 export class Co2ForecastContainerScam {}
