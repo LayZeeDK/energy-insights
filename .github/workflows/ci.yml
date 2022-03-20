@@ -8,7 +8,8 @@ env:
   # Check out
   checkout-fetch-depth: ${{ github.event_name == 'push' && 1 || 0 }}
   checkout-ref:
-    ${{ github.event_name == 'pull_request' && github.head_ref || '' }}
+    # ${{ github.event_name == 'pull_request' && github.head_ref || '' }}
+    ${{ github.event_name == 'pull_request' && github.base_ref || '' }}
 
   # Node.js
   NODE_OPTIONS: --max-old-space-size=6144
