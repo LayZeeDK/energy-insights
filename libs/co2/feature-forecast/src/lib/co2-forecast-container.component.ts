@@ -32,8 +32,8 @@ const selector = 'nrg-co2-forecast';
 export class Co2ForecastContainerComponent {
   forecast$: Observable<Co2Forecast>;
 
-  constructor(co2ForecastStore: Co2ForecastStore) {
-    this.forecast$ = co2ForecastStore.forecast$;
+  constructor({ forecast$ }: Co2ForecastStore) {
+    this.forecast$ = forecast$;
   }
 }
 
