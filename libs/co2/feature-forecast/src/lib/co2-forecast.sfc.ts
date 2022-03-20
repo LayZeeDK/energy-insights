@@ -6,7 +6,9 @@ import {
   NgModule,
   ViewEncapsulation,
 } from '@angular/core';
-import { Co2Forecast } from '@energy-insights/co2/domain';
+import { Co2Forecast, Co2ForecastDataPoint } from '@energy-insights/co2/domain';
+
+import { identifyCo2ForecastDataPoint } from './identify-co2-forecast-data-point';
 
 const selector = 'nrg-co2-forecast-ui';
 
@@ -33,7 +35,7 @@ const selector = 'nrg-co2-forecast-ui';
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let dataPoint of forecast">
+        <tr *ngFor="let dataPoint of forecast; trackBy: trackByDataPoint">
           <td data-testid="date-time-cell">
             {{ dataPoint.minutes5Utc.toJSDate() | date: 'long' }}
           </td>
@@ -58,6 +60,10 @@ export class Co2ForecastComponent {
   }
   get forecast(): Co2Forecast {
     return this.#forecast;
+  }
+
+  trackByDataPoint(_index: number, dataPoint: Co2ForecastDataPoint): string {
+    return identifyCo2ForecastDataPoint(dataPoint);
   }
 }
 
