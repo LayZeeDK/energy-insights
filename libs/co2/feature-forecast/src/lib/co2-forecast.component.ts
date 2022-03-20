@@ -35,8 +35,14 @@ const selector = 'nrg-co2-forecast-ui';
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let dataPoint of forecast; trackBy: trackByDataPoint">
-          <td data-testid="date-time-cell">
+        <tr
+          *ngFor="
+            let dataPoint of forecast;
+            first as isFirst;
+            trackBy: trackByDataPoint
+          "
+        >
+          <td [attr.data-testid]="isFirst ? 'first-date-time-cell' : ''">
             {{ dataPoint.minutes5Utc.toJSDate() | date: 'long' }}
           </td>
           <td>{{ dataPoint.co2Emission | number: '1.2' }}</td>
