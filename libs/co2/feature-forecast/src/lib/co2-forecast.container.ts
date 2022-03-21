@@ -29,7 +29,7 @@ const selector = 'nrg-co2-forecast';
   `,
   viewProviders: [Co2ForecastStore],
 })
-export class Co2ForecastContainerComponent {
+export class Co2ForecastContainer {
   forecast$: Observable<Co2Forecast>;
 
   constructor({ forecast$ }: Co2ForecastStore) {
@@ -38,7 +38,7 @@ export class Co2ForecastContainerComponent {
 }
 
 @NgModule({
-  declarations: [Co2ForecastContainerComponent],
+  declarations: [Co2ForecastContainer],
   imports: [PushModule, Co2ForecastScam],
 })
 export class Co2ForecastContainerScam {}

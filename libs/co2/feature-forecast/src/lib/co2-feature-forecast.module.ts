@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import {
-  Co2ForecastContainerComponent,
+  Co2ForecastContainer,
   Co2ForecastContainerScam,
-} from './co2-forecast-container.component';
+} from './co2-forecast.container';
 
 const routes: Routes = [
   {
     path: '',
-    component: Co2ForecastContainerComponent,
+    component: Co2ForecastContainer,
   },
 ];
 
