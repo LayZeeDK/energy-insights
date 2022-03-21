@@ -30,19 +30,24 @@ const selector = 'nrg-co2-forecast-ui';
       <thead>
         <tr>
           <th>Date and time</th>
+
           <th>gCO2/kWh</th>
+
           <th>Price area</th>
         </tr>
       </thead>
+
       <tbody>
         <tr *ngFor="let dataPoint of forecast; trackBy: trackByDataPoint">
-          <td>
+          <td class="u-text--left">
             {{ dataPoint.minutes5Utc.toJSDate() | date: 'long' }}
           </td>
-          <td>
+
+          <td class="u-text--right">
             {{ dataPoint.co2Emission | number: '1.0' }}
           </td>
-          <td>{{ dataPoint.priceArea }}</td>
+
+          <td class="u-text--right">{{ dataPoint.priceArea }}</td>
         </tr>
       </tbody>
     </table>
