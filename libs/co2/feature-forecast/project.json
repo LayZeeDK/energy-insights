@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/co2/feature-forecast",
+  "sourceRoot": "libs/co2/feature-forecast/src",
+  "prefix": "nrg",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/co2/feature-forecast"],
+      "options": {
+        "jestConfig": "libs/co2/feature-forecast/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/co2/feature-forecast/src/**/*.ts",
+          "libs/co2/feature-forecast/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:co2", "type:feature"]
+}

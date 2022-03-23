@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/co2/data-access-state",
+  "sourceRoot": "libs/co2/data-access-state/src",
+  "prefix": "nrg",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/co2/data-access-state"],
+      "options": {
+        "jestConfig": "libs/co2/data-access-state/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/co2/data-access-state/src/**/*.ts",
+          "libs/co2/data-access-state/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:co2", "type:data-access"]
+}

@@ -7,6 +7,12 @@
       "rules": {}
     },
     {
+      "files": ["*.ts"],
+      "rules": {
+        "@angular-eslint/component-class-suffix": "off"
+      }
+    },
+    {
       "files": ["src/plugins/index.js"],
       "rules": {
         "@typescript-eslint/no-var-requires": "off",

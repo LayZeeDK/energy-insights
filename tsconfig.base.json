@@ -1,26 +1,47 @@
 {
+  "angularCompilerOptions": {
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  },
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "target": "ES2021",
+    "module": "ESNext",
+    "lib": ["ES2021", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@energy-insights/co2/data-access": ["libs/co2/data-access/src/index.ts"],
+      "@energy-insights/co2/data-access-api": [
+        "libs/co2/data-access-api/src/index.ts"
+      ],
+      "@energy-insights/co2/data-access-state": [
+        "libs/co2/data-access-state/src/index.ts"
+      ],
+      "@energy-insights/co2/domain": ["libs/co2/domain/src/index.ts"],
+      "@energy-insights/co2/feature-forecast": [
+        "libs/co2/feature-forecast/src/index.ts"
+      ],
+      "@energy-insights/co2/routing": ["libs/co2/routing/src/index.ts"],
+      "@energy-insights/co2/shell": ["libs/co2/shell/src/index.ts"],
+      "@energy-insights/co2/test-util": ["libs/co2/test-util/src/index.ts"],
       "@energy-insights/co2/util-date-times": [
         "libs/co2/util-date-times/src/index.ts"
       ],
       "@energy-insights/root/environments": [
         "libs/root/environments/src/index.ts"
+      ],
+      "@energy-insights/root/shell": ["libs/root/shell/src/index.ts"],
+      "@energy-insights/shared/test-util-matchers": [
+        "libs/shared/test-util-matchers/src/index.ts"
       ]
     }
   },

@@ -28,7 +28,19 @@
     },
     {
       "files": ["*.ts"],
-      "extends": ["plugin:ngrx/component-store-strict"]
+      "extends": ["plugin:ngrx/component-store-strict"],
+      "rules": {}
+    },
+    {
+      "files": ["*.ts"],
+      "rules": {
+        "@angular-eslint/component-class-suffix": [
+          "error",
+          {
+            "suffixes": ["Component", "Container"]
+          }
+        ]
+      }
     },
     {
       "files": ["*.js", "*.jsx"],

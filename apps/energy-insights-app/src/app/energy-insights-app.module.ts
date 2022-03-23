@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EnergyInsightsShellModule } from '@energy-insights/root/shell';
 
 import {
   EnergyInsightsAppComponent,
@@ -8,6 +9,10 @@ import {
 
 @NgModule({
   bootstrap: [EnergyInsightsAppComponent],
-  imports: [BrowserModule, EnergyInsightsAppScam],
+  imports: [
+    BrowserAnimationsModule,
+    EnergyInsightsShellModule,
+    EnergyInsightsAppScam,
+  ],
 })
 export class EnergyInsightsAppModule {}

@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+.o-centered-context {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.u-text--right {
+  text-align: right !important;
+}
+
+.u-text--left {
+  text-align: left !important;
+}

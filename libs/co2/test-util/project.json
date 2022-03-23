@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/co2/test-util",
+  "sourceRoot": "libs/co2/test-util/src",
+  "prefix": "nrg",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/co2/test-util"],
+      "options": {
+        "jestConfig": "libs/co2/test-util/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/co2/test-util/src/**/*.ts",
+          "libs/co2/test-util/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:co2", "type:test-util"]
+}
