@@ -65,11 +65,19 @@
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
-        "production": {
+        "development": {
+          "browserTarget": "energy-insights-app:build:development",
+          "hmr": true
+        },
+        "e2e-development": {
+          "browserTarget": "energy-insights-app:build:development"
+        },
+        "e2e-production": {
           "browserTarget": "energy-insights-app:build:production"
         },
-        "development": {
-          "browserTarget": "energy-insights-app:build:development"
+        "production": {
+          "browserTarget": "energy-insights-app:build:production",
+          "hmr": true
         }
       },
       "defaultConfiguration": "development"

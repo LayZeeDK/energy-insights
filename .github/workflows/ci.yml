@@ -127,7 +127,7 @@ jobs:
           'PR: End-to-end test application if affected by changes in feature
           branch'
         if: env.is-pull-request == 'true'
-        run: yarn affected:e2e
+        run: yarn affected:e2e --configuration=ci-production
       - name: 'Merge: End-to-end test application'
         if: env.is-merge == 'true'
-        run: yarn e2e
+        run: yarn e2e --configuration=ci-production
