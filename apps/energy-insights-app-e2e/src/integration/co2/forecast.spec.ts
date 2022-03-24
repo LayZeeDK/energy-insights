@@ -1,9 +1,10 @@
-import { DateTime } from 'luxon';
+import { DateTime, SystemZone } from 'luxon';
 
 import * as forecast from '../../support/co2-forecast.po';
 
 describe('CO2 forecast', () => {
   const angularLongDateTimeFormat = "MMMM d, yyyy 'at' hh:mm:ss a ZZZZ";
+
   beforeEach(() => {
     cy.intercept({
       method: 'GET',
@@ -20,7 +21,7 @@ describe('CO2 forecast', () => {
     forecast.findTitle().should('exist');
   });
 
-  it('displays the first 5 minute interval of the current Danish day', () => {
+  it('displays the first 5 minute interval of the current day', () => {
     const danishToday = DateTime.now()
       .setZone('Europe/Copenhagen')
       .startOf('day');
@@ -29,7 +30,10 @@ describe('CO2 forecast', () => {
     forecast
       .findFirstDataRow()
       .findByRole('cell', {
-        name: danishToday.toFormat(angularLongDateTimeFormat),
+        name: danishToday
+          .setZone(SystemZone.instance.name)
+          .toFormat(angularLongDateTimeFormat)
+          .replace('UTC', 'GMT+0'),
       })
       .should('exist');
   });
