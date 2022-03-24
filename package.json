@@ -68,6 +68,7 @@
     "@nrwl/workspace": "13.9.2",
     "@schematics/angular": "~13.2.0",
     "@testing-library/angular": "~11.0.3",
+    "@testing-library/cypress": "^8.0.2",
     "@testing-library/jest-dom": "~5.16.2",
     "@types/jest": "27.0.2",
     "@types/luxon": "~2.3.0",
