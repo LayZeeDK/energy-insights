@@ -7,13 +7,33 @@
       "executor": "@nrwl/cypress:cypress",
       "options": {
         "cypressConfig": "apps/energy-insights-app-e2e/cypress.json",
-        "devServerTarget": "energy-insights-app:serve:development"
+        "headed": true
       },
       "configurations": {
+        "ci-development": {
+          "cypressConfig": "apps/energy-insights-app-e2e/cypress.ci.json",
+          "devServerTarget": "energy-insights-app:serve:e2e-development",
+          "headed": false
+        },
+        "ci-production": {
+          "cypressConfig": "apps/energy-insights-app-e2e/cypress.ci.json",
+          "devServerTarget": "energy-insights-app:serve:e2e-production",
+          "headed": false
+        },
+        "development": {
+          "devServerTarget": "energy-insights-app:serve:e2e-development"
+        },
         "production": {
-          "devServerTarget": "energy-insights-app:serve:production"
+          "devServerTarget": "energy-insights-app:serve:e2e-production"
+        },
+        "watch-development": {
+          "devServerTarget": "energy-insights-app:serve:e2e-development"
+        },
+        "watch-production": {
+          "devServerTarget": "energy-insights-app:serve:e2e-production"
         }
-      }
+      },
+      "defaultConfiguration": "development"
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
@@ -21,6 +41,23 @@
       "options": {
         "lintFilePatterns": ["apps/energy-insights-app-e2e/**/*.{js,ts}"]
       }
+    },
+    "watch": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/energy-insights-app-e2e/cypress.json",
+        "headed": true,
+        "watch": true
+      },
+      "configurations": {
+        "development": {
+          "devServerTarget": "energy-insights-app:serve:e2e-development"
+        },
+        "production": {
+          "devServerTarget": "energy-insights-app:serve:e2e-production"
+        }
+      },
+      "defaultConfiguration": "development"
     }
   },
   "tags": [],

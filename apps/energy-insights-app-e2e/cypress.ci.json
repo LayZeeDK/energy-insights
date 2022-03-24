@@ -5,10 +5,10 @@
   "fixturesFolder": "./src/fixtures",
   "modifyObstructiveCode": false,
   "pluginsFile": false,
-  "screenshotsFolder": "../../dist/cypress/apps/energy-insights-app-e2e/screenshots",
+  "screenshotOnRunFailure": false,
   "supportFile": "./src/support/index.ts",
-  "video": true,
-  "videosFolder": "../../dist/cypress/apps/energy-insights-app-e2e/videos",
+  "video": false,
   "viewportHeight": 1080,
-  "viewportWidth": 1920
+  "viewportWidth": 1920,
+  "watchForFileChanges": false
 }
