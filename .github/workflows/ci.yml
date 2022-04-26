@@ -50,7 +50,7 @@ jobs:
 
       - name: 'PR: Build application if affected by changes in feature branch'
         if: env.is-pull-request == 'true'
-        run: yarn build
+        run: yarn affected:build
       - name: 'Merge: Build application'
         if: env.is-merge == 'true'
         run: yarn build
