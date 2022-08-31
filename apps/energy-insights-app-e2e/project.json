@@ -6,17 +6,18 @@
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/energy-insights-app-e2e/cypress.json",
-        "headed": true
+        "cypressConfig": "apps/energy-insights-app-e2e/cypress.config.ts",
+        "headed": true,
+        "testingType": "e2e"
       },
       "configurations": {
         "ci-development": {
-          "cypressConfig": "apps/energy-insights-app-e2e/cypress.ci.json",
+          "cypressConfig": "apps/energy-insights-app-e2e/cypress.config.ci.ts",
           "devServerTarget": "energy-insights-app:serve:e2e-development",
           "headed": false
         },
         "ci-production": {
-          "cypressConfig": "apps/energy-insights-app-e2e/cypress.ci.json",
+          "cypressConfig": "apps/energy-insights-app-e2e/cypress.config.ci.ts",
           "devServerTarget": "energy-insights-app:serve:e2e-production",
           "headed": false
         },
