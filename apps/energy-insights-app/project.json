@@ -1,6 +1,6 @@
 {
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "root": "apps/energy-insights-app",
   "sourceRoot": "apps/energy-insights-app/src",
   "prefix": "energy-insights",
   "targets": {
@@ -101,7 +101,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/energy-insights-app"],
       "options": {
-        "jestConfig": "apps/energy-insights-app/jest.config.js",
+        "jestConfig": "apps/energy-insights-app/jest.config.ts",
         "passWithNoTests": true
       }
     }

@@ -1,5 +1,5 @@
 {
-  "root": "libs/root/assets",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/root/assets/src",
   "projectType": "library",
   "targets": {},

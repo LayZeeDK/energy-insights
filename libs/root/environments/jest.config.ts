@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'co2-feature-forecast',
+/* eslint-disable */
+export default {
+  displayName: 'root-environments',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +9,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/co2/feature-forecast',
+  coverageDirectory: '../../../coverage/libs/root/environments',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

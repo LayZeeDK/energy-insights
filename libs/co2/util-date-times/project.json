@@ -1,6 +1,6 @@
 {
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "root": "libs/co2/util-date-times",
   "sourceRoot": "libs/co2/util-date-times/src",
   "prefix": "nrg",
   "targets": {
@@ -8,7 +8,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/co2/util-date-times"],
       "options": {
-        "jestConfig": "libs/co2/util-date-times/jest.config.js",
+        "jestConfig": "libs/co2/util-date-times/jest.config.ts",
         "passWithNoTests": true
       }
     },
