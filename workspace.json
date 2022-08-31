@@ -16,5 +16,6 @@
     "root-shell": "libs/root/shell",
     "root-styles": "libs/root/styles",
     "shared-test-util-matchers": "libs/shared/test-util-matchers"
-  }
+  },
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

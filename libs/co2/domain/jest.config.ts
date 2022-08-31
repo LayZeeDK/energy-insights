@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'root-environments',
+/* eslint-disable */
+export default {
+  displayName: 'co2-domain',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +9,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/root/environments',
+  coverageDirectory: '../../../coverage/libs/co2/domain',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

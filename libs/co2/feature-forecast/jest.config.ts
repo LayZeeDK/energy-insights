@@ -1,6 +1,7 @@
-module.exports = {
-  displayName: 'energy-insights-app',
-  preset: '../../jest.preset.js',
+/* eslint-disable */
+export default {
+  displayName: 'co2-feature-forecast',
+  preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -8,7 +9,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/apps/energy-insights-app',
+  coverageDirectory: '../../../coverage/libs/co2/feature-forecast',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

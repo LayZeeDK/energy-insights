@@ -3,7 +3,6 @@
     "defaultBase": "main"
   },
   "cli": {
-    "defaultCollection": "@nrwl/angular",
     "packageManager": "yarn"
   },
   "defaultProject": "energy-insights-app",
@@ -43,14 +42,6 @@
     ".eslintrc.json": "*"
   },
   "npmScope": "energy-insights",
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      }
-    ]
-  },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
@@ -60,6 +51,12 @@
         "canTrackAnalytics": true,
         "showUsageWarnings": true
       }
+    }
+  },
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"]
     }
   }
 }
