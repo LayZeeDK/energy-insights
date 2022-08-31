@@ -5,12 +5,12 @@
   "version": "0.0.0",
   "engines": {
     "npm": "Use Yarn instead of NPM",
-    "node": "16.14.2",
-    "yarn": "1.22.18"
+    "node": "16.17.0",
+    "yarn": "1.22.19"
   },
   "volta": {
-    "node": "16.14.2",
-    "yarn": "1.22.18"
+    "node": "16.17.0",
+    "yarn": "1.22.19"
   },
   "scripts": {
     "postinstall": "npm run decorate-angular-cli && npm run ngcc",
@@ -89,4 +89,3 @@
     "typescript": "4.6.4"
   }
 }
-
