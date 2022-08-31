@@ -44,7 +44,7 @@
     "@nrwl/angular": "14.6.1",
     "@rx-angular/cdk": "1.0.0-rc.1",
     "@rx-angular/template": "1.0.0-rc.1",
-    "luxon": "2.3.0",
+    "luxon": "3.0.3",
     "rxjs": "7.5.6",
     "tslib": "2.4.0",
     "zone.js": "0.11.8"
@@ -70,7 +70,7 @@
     "@testing-library/cypress": "8.0.3",
     "@testing-library/jest-dom": "5.16.5",
     "@types/jest": "28.1.8",
-    "@types/luxon": "2.3.0",
+    "@types/luxon": "3.0.1",
     "@types/node": "16.11.7",
     "@typescript-eslint/eslint-plugin": "5.33.1",
     "@typescript-eslint/parser": "5.33.1",
