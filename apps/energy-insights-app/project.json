@@ -27,7 +27,8 @@
           }
         ],
         "styles": ["libs/root/styles/src/index.scss"],
-        "scripts": []
+        "scripts": [],
+        "allowedCommonJsDependencies": ["luxon"]
       },
       "configurations": {
         "production": {
