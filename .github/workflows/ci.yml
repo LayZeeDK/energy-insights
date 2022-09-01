@@ -73,6 +73,8 @@ jobs:
       - name: Set up dependencies
         uses: ./.github/actions/setup-dependencies
 
+      - name: Lint Nx workspace
+        run: yarn nx workspace-lint
       - name: 'PR: Lint workspace and affected projects'
         if: env.is-pull-request == 'true'
         run: yarn affected:lint
