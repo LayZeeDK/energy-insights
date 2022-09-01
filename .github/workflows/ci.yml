@@ -16,12 +16,16 @@ on:
 
 concurrency:
   # Group concurrency on workflow, then:
-  # - Is merge run? Group `push` events
-  # - Is pull request? Group `pull_request` events
-  group:
-    ${{ github.workflow }}-${{ github.event_name == 'push' && github.base_ref ||
-    github.head_ref }}
-  # Run merge runs in sequence. Cancel in progress pull request runs.
+  # - Is merge run? Group on branch name (`refs/heads/main`)
+  # - Is pull request? Group on pull request branch name, for example `feat/add-awesome-feature`
+  group: >-
+    ${{ github.workflow }}-${{
+      github.event_name == 'push'
+        && github.ref
+        || github.head_ref
+    }}
+  # Run merge workflows in sequence to prevent parallel deployments and releases
+  # Cancel stale pull request runs in progress for the same branch
   cancel-in-progress: ${{ github.event_name != 'push' }}
 
 permissions:
