@@ -6,7 +6,7 @@
     "co2-domain": "libs/co2/domain",
     "co2-feature-forecast": "libs/co2/feature-forecast",
     "co2-routing": "libs/co2/routing",
-    "co2-shell": "libs/co2/routing",
+    "co2-shell": "libs/co2/shell",
     "co2-test-util": "libs/co2/test-util",
     "co2-util-date-times": "libs/co2/util-date-times",
     "energy-insights-app": "apps/energy-insights-app",
