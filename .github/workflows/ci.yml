@@ -2,7 +2,7 @@ name: CI
 
 env:
   # Branching
-  is-merge: ${{ github.event_name == 'push' }}
+  is-merge: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
   is-pull-request: ${{ github.event_name == 'pull_request' }}
 
   # Node.js
