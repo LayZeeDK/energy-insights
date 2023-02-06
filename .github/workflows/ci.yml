@@ -100,7 +100,7 @@ jobs:
 
       - name: 'PR: Test affected projects'
         if: env.is-pull-request == 'true'
-        run: yarn test
+        run: yarn affected:test
       - name: 'Merge: Test all projects'
         if: env.is-merge == 'true'
         run: yarn test
